@@ -1,12 +1,25 @@
 package util
 
 import (
-	"SSPS/middleware"
 	"net/http"
 	"sync"
 )
 
 // 抛出异常 处理
+
+// 异常 结构体
+type ErrorInfo struct {
+	Code int    `json:"code"`
+	Msg  string `json:"msg"`
+}
+
+// 异常 结构体 构造函数
+func NewErrorInfo(code int, msg string) *ErrorInfo {
+	return &ErrorInfo{
+		Code: code,
+		Msg:  msg,
+	}
+}
 
 // 错误处理 方法的 接口
 type errorHandle interface {
@@ -14,8 +27,6 @@ type errorHandle interface {
 	ServerError(msg string)
 	// 404 错误
 	NotFound(msg string)
-	// 403 未知错误
-	UnknownError(msg string)
 	// 400 参数错误
 	ParameterError(msg string)
 	// 401 登录失败
@@ -23,7 +34,7 @@ type errorHandle interface {
 	// 403 权限认证不通过
 	ForbiddenError(msg string)
 	// 自定义错误  需要自行准备http code, msg
-	MakeError(msg string)
+	MakeError(code int, msg string)
 }
 
 var (
@@ -46,35 +57,30 @@ func GetError() errorHandle {
 
 // 500 错误处理
 func (e errorHandling) ServerError(msg string) {
-	panic(middleware.NewErrorInfo(http.StatusInternalServerError, msg))
+	panic(NewErrorInfo(http.StatusInternalServerError, msg))
 }
 
 // 404 错误
 func (e errorHandling) NotFound(msg string) {
-	panic(middleware.NewErrorInfo(http.StatusNotFound, msg))
-}
-
-// 403 未知错误
-func (e errorHandling) UnknownError(msg string) {
-	panic(middleware.NewErrorInfo(http.StatusForbidden, msg))
+	panic(NewErrorInfo(http.StatusNotFound, msg))
 }
 
 // 400 参数错误
 func (e errorHandling) ParameterError(msg string) {
-	panic(middleware.NewErrorInfo(http.StatusBadRequest, msg))
+	panic(NewErrorInfo(http.StatusBadRequest, msg))
 }
 
 // 401 登录失败
 func (e errorHandling) UnauthorizedError(msg string) {
-	panic(middleware.NewErrorInfo(http.StatusUnauthorized, msg))
+	panic(NewErrorInfo(http.StatusUnauthorized, msg))
 }
 
 // 403 权限认证不通过
 func (e errorHandling) ForbiddenError(msg string) {
-	panic(middleware.NewErrorInfo(http.StatusForbidden, msg))
+	panic(NewErrorInfo(http.StatusForbidden, msg))
 }
 
 // 自定义错误  需要自行准备http code, msg
-func (e errorHandling) MakeError(msg string) {
-	panic(middleware.NewErrorInfo(http.StatusForbidden, msg))
+func (e errorHandling) MakeError(code int, msg string) {
+	panic(NewErrorInfo(http.StatusForbidden, msg))
 }

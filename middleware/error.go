@@ -1,6 +1,12 @@
 package middleware
 
-import "github.com/gin-gonic/gin"
+import (
+	"SSPS/util"
+	"fmt"
+	"net/http"
+
+	"github.com/gin-gonic/gin"
+)
 
 // 异常处理 捕获 中间件
 
@@ -12,7 +18,7 @@ func ErrorMiddlewareHandle() gin.HandlerFunc {
 			error := recover()
 
 			// 异常 强制转换成 异常结构体
-			info, ok := (error).(*errorInfo)
+			info, ok := (error).(*util.ErrorInfo)
 
 			// 判断是否 可 转换为 ErrorInfo
 			// 如果可以转换，说明是主动抛出的错误
@@ -22,23 +28,19 @@ func ErrorMiddlewareHandle() gin.HandlerFunc {
 				// 发送错误信息
 				ctx.JSON(info.Code, info)
 				ctx.Abort()
+			} else {
+				if error != nil {
+					// 不是主动抛出的异常
+					ctx.JSON(http.StatusBadRequest, gin.H{
+						"code": http.StatusBadRequest,
+						"msg":  fmt.Sprint("未知错误，err: ", error),
+					})
+					ctx.Abort()
+				}
 			}
+
 		}()
 
 		ctx.Next()
-	}
-}
-
-// 异常 结构体
-type errorInfo struct {
-	Code int    `json:"code"`
-	Msg  string `json:"msg"`
-}
-
-// 异常 结构体 构造函数
-func NewErrorInfo(code int, msg string) *errorInfo {
-	return &errorInfo{
-		Code: code,
-		Msg:  msg,
 	}
 }
