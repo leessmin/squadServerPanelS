@@ -2,7 +2,6 @@ package route
 
 import (
 	_ "SSPS/router/login"
-	_ "SSPS/error"
 )
 
 // 路由注册
