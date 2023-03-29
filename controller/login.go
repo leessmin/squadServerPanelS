@@ -1,9 +1,11 @@
 package controller
 
 import (
+	"fmt"
 	"net/http"
 
 	"SSPS/config"
+	"SSPS/util"
 
 	"github.com/gin-gonic/gin"
 )
@@ -37,8 +39,19 @@ func (c ControllerLogin) LoginHandle(ctx *gin.Context) {
 		return
 	}
 
+	// 签发token
+	token, err := util.UtilJWT.CreateJWT(username)
+	if err != nil {
+		ctx.JSON(http.StatusUnauthorized, gin.H{
+			"code": http.StatusUnauthorized,
+			"msg":  fmt.Sprintln("生成token失败，错误信息为：err: ", err),
+		})
+		return
+	}
+
 	ctx.JSON(http.StatusOK, gin.H{
-		"code": http.StatusOK,
-		"msg":  "登录成功",
+		"code":  http.StatusOK,
+		"msg":   "登录成功",
+		"token": token,
 	})
 }
