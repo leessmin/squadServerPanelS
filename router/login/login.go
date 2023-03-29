@@ -10,6 +10,10 @@ import (
 func init() {
 	authRouter := router.APIGroup.Group("/auth")
 	{
+
+		// 获取验证码  登录前需要调用本接口 获取验证码
+		authRouter.GET("/captcha", controller.Login.CaptchaHandle)
+
 		// 登录
 		authRouter.POST("/login", controller.Login.LoginHandle)
 	}

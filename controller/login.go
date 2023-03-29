@@ -1,26 +1,50 @@
 package controller
 
 import (
+	"bytes"
 	"fmt"
 	"net/http"
+	"time"
 
 	"SSPS/config"
 	"SSPS/util"
 
+	"github.com/dchest/captcha"
 	"github.com/gin-gonic/gin"
 )
 
 // controller 类
-type ControllerLogin struct{}
+type controllerLogin struct{}
 
-var Login ControllerLogin
+var Login controllerLogin
 
 func init() {
-	Login = ControllerLogin{}
+	Login = controllerLogin{}
+}
+
+// 获取验证码   验证码 w 70px h 35px
+func (c controllerLogin) CaptchaHandle(ctx *gin.Context) {
+	ctx.Writer.Header().Set("Cache-Control", "no-cache, no-store, must-revalidate")
+
+	ctx.Writer.Header().Set("Pragma", "no-cache")
+
+	ctx.Writer.Header().Set("Expires", "0")
+
+	ctx.Writer.Header().Set("Content-Type", "image/png")
+
+	id := captcha.NewLen(4)
+
+	var content bytes.Buffer
+
+	captcha.WriteImage(&content, id, 280, 140) //4位验证码,宽100,高50最清晰
+
+	http.ServeContent(ctx.Writer, ctx.Request, id+".png", time.Time{}, bytes.NewReader(content.Bytes()))
+
+	return
 }
 
 // 登录回调
-func (c ControllerLogin) LoginHandle(ctx *gin.Context) {
+func (c controllerLogin) LoginHandle(ctx *gin.Context) {
 	username := ctx.PostForm("username")
 	password := ctx.PostForm("password")
 
