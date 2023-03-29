@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"SSPS/config"
+	"SSPS/middleware"
 	"SSPS/util"
 
 	"github.com/gin-gonic/gin"
@@ -32,21 +33,13 @@ func (c ControllerLogin) LoginHandle(ctx *gin.Context) {
 
 	// 判断账号密码是否正确
 	if username != configUser.Username || password != configUser.Password {
-		ctx.JSON(http.StatusUnauthorized, gin.H{
-			"code": http.StatusUnauthorized,
-			"msg":  "账号或密码错误，请重试",
-		})
-		return
+		middleware.GetError().UnauthorizedError("登录失败，账号或密码错误！！！")
 	}
 
 	// 签发token
 	token, err := util.UtilJWT.CreateJWT(username)
 	if err != nil {
-		ctx.JSON(http.StatusUnauthorized, gin.H{
-			"code": http.StatusUnauthorized,
-			"msg":  fmt.Sprintln("生成token失败，错误信息为：err: ", err),
-		})
-		return
+		middleware.GetError().ServerError(fmt.Sprintln("生成token失败，错误信息为：err: ", err))
 	}
 
 	ctx.JSON(http.StatusOK, gin.H{
