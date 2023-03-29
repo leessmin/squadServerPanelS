@@ -22,7 +22,7 @@ func init() {
 }
 
 // 签发 JWT 结构体
-type CustomClaims struct {
+type customClaims struct {
 	// 用户名
 	Username string
 	jwt.RegisteredClaims
@@ -31,7 +31,7 @@ type CustomClaims struct {
 // 创建jwt
 func (u uJWT) CreateJWT(username string) (string, error) {
 	// 实例化 签发 jwt 的结构体
-	claims := CustomClaims{
+	claims := customClaims{
 		Username: username,
 		RegisteredClaims: jwt.RegisteredClaims{
 			// 过期时间
