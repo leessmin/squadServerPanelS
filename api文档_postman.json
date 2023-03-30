@@ -1,0 +1,130 @@
+{
+	"info": {
+		"_postman_id": "d22f46c2-2e0a-4b0a-a70b-fd0ec84ed23d",
+		"name": "战术小队服务器面板后端",
+		"description": "战术小队服务器面板API接口文档\n\n# 统一的错误处理\n\nStartFragmentStartFragment\n\n`{`\n\n`\"code\" 错误状态码`\n\n`\"msg\": 错误的消息`\n\n`}`\n\nEndFragmen\n\n# 统一的成功格式\n\nStartFragment\n\n`{`    \n\n`\"code\" 成功状态码,`   \n\n `\"msg\" 成功的消息`   \n\n `\"data\" 成功的数据，格式具体情况具体分析，格式不唯一`\n\n`}`\n\nEndFragment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19879804"
+	},
+	"item": [
+		{
+			"name": "鉴权",
+			"item": [
+				{
+					"name": "获取图片验证码",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/auth/captcha",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"auth",
+								"captcha"
+							]
+						},
+						"description": "## 获取图片的验证码，以及验证的id\n\n### 返回格式：\n\nStartFragment\n\n`{`\n\n`\"id“ 验证码的id`\n\n`\"image\" 验证码的图片`\n\n`}`\n\nEndFragment"
+					},
+					"response": []
+				},
+				{
+					"name": "登录",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "admin",
+									"description": "账号",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "admin",
+									"description": "密码",
+									"type": "text"
+								},
+								{
+									"key": "captcha_id",
+									"value": "nIbceCeVo7lnNzqsyzff",
+									"description": "验证码的id",
+									"type": "text"
+								},
+								{
+									"key": "captcha_code",
+									"value": "5757",
+									"description": "验证码",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/auth/login",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						},
+						"description": "## 登录，在次之前需要请求 获取图片验证码api 拿到验证码\n\n### 返回格式：\n\nStartFragment\n\n`{`        \n\n`\"token\" token`\n\n `}`\n\nEndFragment"
+					},
+					"response": []
+				},
+				{
+					"name": "验证token是否有效",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VybmFtZSI6ImFkbWluIiwiT3BfdGltZSI6IjIwMjMtMDMtMzBUMDc6MzI6MDAtMDk6MDAiLCJpc3MiOiJzcXVhZFNlcnZlclBhbmVsU2VydmVyIiwic3ViIjoiYWRtaW4iLCJhdWQiOlsiYWRtaW4iXSwiZXhwIjoxNjgwMjcxMTQ1LCJuYmYiOjE2ODAxODQ3NDUsImlhdCI6MTY4MDE4NDc0NSwianRpIjoiMSJ9.vx8YTFlxx9lfqYka--jrGKxxqFKUexBoDmSa9-mwBEk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/auth/verify",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"auth",
+								"verify"
+							]
+						},
+						"description": "## 验证token是否有效"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
