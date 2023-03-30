@@ -16,5 +16,8 @@ func init() {
 
 		// 登录
 		authRouter.POST("/login", controller.Login.LoginHandle)
+
+		// 验证token是否有效
+		authRouter.Any("/verify", controller.Login.VerifyTokenHandle)
 	}
 }

@@ -63,7 +63,7 @@ func (c controllerLogin) LoginHandle(ctx *gin.Context) {
 	}
 
 	// 签发token
-	token, err := util.UtilJWT.CreateJWT(username)
+	token, err := util.UtilJWT.CreateJWT(username, configUser.Op_time)
 	if err != nil {
 		util.GetError().ServerError(fmt.Sprintln("生成token失败，错误信息为：err: ", err))
 	}
@@ -76,4 +76,29 @@ func (c controllerLogin) LoginHandle(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, util.CreateResponseMsg(http.StatusOK, "登录成功", gin.H{
 		"token": token,
 	}))
+}
+
+// 验证token是否有效
+func (c controllerLogin) VerifyTokenHandle(ctx *gin.Context) {
+	// 从请求头中 获取token
+	tokenString := ctx.GetHeader("Authorization")[7:]
+
+	// 解析token
+	claims := util.UtilJWT.VerifyToken(tokenString)
+
+	// 创建读取 auth 配置的实例
+	authStruct := config.AuthUser{}
+	// 读取配置文件  获取登录账号与密码 与修改时间
+	configUser := authStruct.ReadAuthConfig()
+
+	// 判断token是否有效
+	if configUser.Username != claims.Username || configUser.Op_time != claims.Op_time {
+		util.GetError().ForbiddenError("token失效")
+	}
+
+	// 成功
+	ctx.JSON(http.StatusOK, util.CreateResponseMsg(http.StatusOK, "token有效", gin.H{
+		"token": tokenString,
+	}))
+
 }

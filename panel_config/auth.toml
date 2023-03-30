@@ -2,3 +2,5 @@
 [account]
 username = "admin"
 password = "admin"
+# 操作账号密码的时间  防止修改密码token还生效
+op_time = 2023-03-30T07:32:00-09:00

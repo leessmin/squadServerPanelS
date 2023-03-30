@@ -2,6 +2,7 @@ package config
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/spf13/viper"
 )
@@ -10,6 +11,7 @@ import (
 type AuthUser struct {
 	Username string
 	Password string
+	Op_time  time.Time
 }
 
 // auth 配置文件读取器
@@ -35,6 +37,7 @@ func (a AuthUser) ReadAuthConfig() AuthUser {
 	// 将配置文件映射成user
 	a.Username = authViper.GetString("account.username")
 	a.Password = authViper.GetString("account.password")
+	a.Op_time = authViper.GetTime("account.op_time")
 
 	return a
 }

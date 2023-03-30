@@ -1,6 +1,7 @@
 package util
 
 import (
+	"fmt"
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
@@ -25,14 +26,16 @@ func init() {
 type customClaims struct {
 	// 用户名
 	Username string
+	Op_time  time.Time
 	jwt.RegisteredClaims
 }
 
 // 创建jwt
-func (u uJWT) CreateJWT(username string) (string, error) {
+func (u uJWT) CreateJWT(username string, op_time time.Time) (string, error) {
 	// 实例化 签发 jwt 的结构体
 	claims := customClaims{
 		Username: username,
+		Op_time:  op_time,
 		RegisteredClaims: jwt.RegisteredClaims{
 			// 过期时间
 			// TODO:暂定24小时
@@ -57,4 +60,27 @@ func (u uJWT) CreateJWT(username string) (string, error) {
 	}
 
 	return tokenString, nil
+}
+
+// 验证token
+func (u uJWT) VerifyToken(tokenString string) *customClaims {
+
+	// 解析token
+	token, err := jwt.ParseWithClaims(tokenString, &customClaims{}, func(t *jwt.Token) (interface{}, error) {
+		return u.signingKey, nil
+	})
+
+	if err != nil {
+		GetError().ServerError(fmt.Sprint("token解析失败,err:", err))
+	}
+
+	// 将token转为 claims
+	claims, ok := token.Claims.(*customClaims)
+
+	if !(ok && token.Valid) {
+		GetError().ForbiddenError("token无效")
+	}
+
+	// 返回 JWT 结构体
+	return claims
 }
