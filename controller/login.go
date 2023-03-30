@@ -25,11 +25,16 @@ func (c controllerLogin) CaptchaHandle(ctx *gin.Context) {
 	// 生成验证码
 	cc := util.CreateCaptcha(70, 35)
 
-	ctx.JSON(http.StatusOK, gin.H{
+	/* ctx.JSON(http.StatusOK, gin.H{
 		"code":    http.StatusOK,
 		"msg":     "验证码生成成功",
 		"captcha": &cc,
-	})
+	}) */
+
+	ctx.JSON(http.StatusOK, util.CreateResponseMsg(http.StatusOK, "验证码生成成功", gin.H{
+		"id":    cc.Id,
+		"image": cc.Image,
+	}))
 }
 
 // 登录回调
@@ -63,9 +68,12 @@ func (c controllerLogin) LoginHandle(ctx *gin.Context) {
 		util.GetError().ServerError(fmt.Sprintln("生成token失败，错误信息为：err: ", err))
 	}
 
-	ctx.JSON(http.StatusOK, gin.H{
+	/* ctx.JSON(http.StatusOK, gin.H{
 		"code":  http.StatusOK,
 		"msg":   "登录成功",
 		"token": token,
-	})
+	}) */
+	ctx.JSON(http.StatusOK, util.CreateResponseMsg(http.StatusOK, "登录成功", gin.H{
+		"token": token,
+	}))
 }
