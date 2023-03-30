@@ -23,7 +23,7 @@ func init() {
 func (c controllerLogin) CaptchaHandle(ctx *gin.Context) {
 
 	// 生成验证码
-	cc := util.CreateCaptcha()
+	cc := util.CreateCaptcha(70, 35)
 
 	ctx.JSON(http.StatusOK, gin.H{
 		"code":    http.StatusOK,

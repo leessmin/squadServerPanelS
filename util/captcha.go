@@ -19,14 +19,14 @@ type Captcha struct {
 }
 
 // 创建验证码 w70px h35px
-func CreateCaptcha() *Captcha {
+func CreateCaptcha(w, h int) *Captcha {
 	// 实例化 验证码结构体
 	t_captcha := Captcha{}
 
 	// 创建验证码   长度为4
 	t_captcha.Id = captcha.NewLen(4)
 
-	t_captcha.Image = createBase64(t_captcha.Id, 70, 35)
+	t_captcha.Image = createBase64(t_captcha.Id, w, h)
 
 	// 返回验证码图片 结构体
 	return &t_captcha
@@ -52,6 +52,9 @@ func createBase64(id string, w int, h int) string {
 	dist := make([]byte, 5000)
 	// base64编码
 	base64.StdEncoding.Encode(dist, contentImg.Bytes())
+
+	// 去除 \u0000
+	dist = bytes.Trim(dist, "\u0000")
 
 	// 生成完毕 返回base64编码
 	return fmt.Sprint("data:image/png;base64,", string(dist))
