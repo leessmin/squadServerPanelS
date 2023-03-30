@@ -16,6 +16,9 @@ func init() {
 	{
 		// 挂载中间件  全局
 		Router.Use(middleware.ErrorMiddlewareHandle())
+
+		// 跨域
+		Router.Use(middleware.CorsMiddlewareHandle())
 	}
 
 	// 创建api路由组
