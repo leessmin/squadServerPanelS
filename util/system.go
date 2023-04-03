@@ -33,31 +33,31 @@ func (s *SystemStruct) GetSystemInfo() map[string]System {
 
 	var system System
 
-	system = &SystemInfo{}
+	system = &systemInfo{}
 	system.GetInfo()
 	mapData["system"] = system
 
-	system = &LoadedInfo{}
+	system = &loadedInfo{}
 	system.GetInfo()
 	mapData["load"] = system
 
-	system = &CPUInfo{}
+	system = &cpuInfo{}
 	system.GetInfo()
 	mapData["cpu"] = system
 
-	system = &MemoryInfo{}
+	system = &memoryInfo{}
 	system.GetInfo()
 	mapData["memory"] = system
 
-	system = &SwapInfo{}
+	system = &swapInfo{}
 	system.GetInfo()
 	mapData["swap"] = system
 
-	system = &DiskInfo{}
+	system = &diskInfo{}
 	system.GetInfo()
 	mapData["dis"] = system
 
-	system = &NetInfo{}
+	system = &netInfo{}
 	system.GetInfo()
 	mapData["net"] = system
 
@@ -70,7 +70,7 @@ type System interface {
 }
 
 // 系统结构体
-type SystemInfo struct {
+type systemInfo struct {
 	// 系统名称
 	SystemName string
 	// 系统 架构
@@ -78,7 +78,7 @@ type SystemInfo struct {
 }
 
 // 获取系统信息
-func (s *SystemInfo) GetInfo() {
+func (s *systemInfo) GetInfo() {
 	// 判断是否为空，如果为空则获取信息
 	if s.SystemName == "" || s.SA == "" {
 		// 获取系统名字
@@ -89,19 +89,19 @@ func (s *SystemInfo) GetInfo() {
 }
 
 // 负载状态结构体
-type LoadedInfo struct {
+type loadedInfo struct {
 	// 负载状态
 	Load *load.AvgStat
 }
 
 // 获取系统负载状态
-func (l *LoadedInfo) GetInfo() {
+func (l *loadedInfo) GetInfo() {
 	// 获取系统负载状态
 	l.Load, _ = load.Avg()
 }
 
 // cpu信息 结构体
-type CPUInfo struct {
+type cpuInfo struct {
 	// cpu名字
 	ModelName string
 	// 处理器核心数
@@ -113,7 +113,7 @@ type CPUInfo struct {
 }
 
 // 获取cpu状态
-func (c *CPUInfo) GetInfo() {
+func (c *cpuInfo) GetInfo() {
 	if c.ModelName == "" || c.Core == 0 || c.CoreLogic == 0 {
 		cpuI, _ := cpu.Info()
 		c.ModelName = cpuI[0].ModelName
@@ -126,7 +126,7 @@ func (c *CPUInfo) GetInfo() {
 }
 
 // 内存信息
-type MemoryInfo struct {
+type memoryInfo struct {
 	// 总内存
 	Total uint64
 	// 使用的内存
@@ -136,7 +136,7 @@ type MemoryInfo struct {
 }
 
 // 获取内存信息
-func (m *MemoryInfo) GetInfo() {
+func (m *memoryInfo) GetInfo() {
 	v, _ := mem.VirtualMemory()
 	if m.Total == 0 {
 		m.Total = v.Total
@@ -147,7 +147,7 @@ func (m *MemoryInfo) GetInfo() {
 }
 
 // swap信息
-type SwapInfo struct {
+type swapInfo struct {
 	// 总内存
 	Total uint64
 	// 使用的内存
@@ -157,7 +157,7 @@ type SwapInfo struct {
 }
 
 // 获取swap信息
-func (s *SwapInfo) GetInfo() {
+func (s *swapInfo) GetInfo() {
 	v, _ := mem.SwapMemory()
 	if s.Total == 0 {
 		s.Total = v.Total
@@ -168,7 +168,7 @@ func (s *SwapInfo) GetInfo() {
 }
 
 // 硬盘信息  只获取系统盘
-type DiskInfo struct {
+type diskInfo struct {
 	// 硬盘总容量
 	Total uint64
 	// 使用的容量
@@ -178,7 +178,7 @@ type DiskInfo struct {
 }
 
 // 获取硬盘信息
-func (d *DiskInfo) GetInfo() {
+func (d *diskInfo) GetInfo() {
 	ds, _ := disk.Partitions(false)
 	dsUsed, _ := disk.Usage(ds[0].Mountpoint)
 
@@ -191,14 +191,14 @@ func (d *DiskInfo) GetInfo() {
 }
 
 // 网络信息
-type NetInfo struct {
+type netInfo struct {
 	// 接收的字节数
 	BytesRecv uint64
 	// 发送的字节数
 	BytesSent uint64
 }
 
-func (ni *NetInfo) GetInfo() {
+func (ni *netInfo) GetInfo() {
 	// 获取所有网卡
 	n, _ := net.IOCounters(true)
 

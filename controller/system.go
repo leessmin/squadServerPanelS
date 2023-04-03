@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"SSPS/config"
 	"SSPS/util"
 	"encoding/json"
 	"time"
@@ -92,6 +93,6 @@ func forMsg(c *controllerSystem) {
 		c.melodyWS.Broadcast(b)
 
 		// TODO: 暂时 写死 5秒
-		time.Sleep(time.Second * 5)
+		time.Sleep(time.Duration(config.PanelConf.ListeningTime) * time.Second)
 	}
 }
