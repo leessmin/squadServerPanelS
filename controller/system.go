@@ -1,6 +1,9 @@
 package controller
 
 import (
+	"SSPS/util"
+	"encoding/json"
+	"fmt"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -38,9 +41,9 @@ func (c *controllerSystem) GetSystemInfo(ctx *gin.Context) {
 	c.melodyWS.HandleRequest(ctx.Writer, ctx.Request)
 }
 
-// 广播 循环 发送消息
+// 广播 消息
 func (c *controllerSystem) sendMsg() {
-	// 向所有会话广播消息已经开启   直接返回
+	// 向所有会话广播消息已经开启 防止再次开启 直接返回
 	if c.isSend {
 		return
 	}
@@ -48,30 +51,45 @@ func (c *controllerSystem) sendMsg() {
 	// 开启广播
 	c.isSend = true
 
-	// 开启 协程处理
+	// 开启 协程 广播消息
 	go func(c *controllerSystem) {
 
 		// 关闭广播
 		defer func() {
 			c.isSend = false
+
+			// 防止关闭广播期间 又新的会话建立连接
+			// 关闭广播后 判断 是否存在会话  如果存在会话 重新调用广播
+			if c.melodyWS.Len() > 0 {
+				c.sendMsg()
+			}
 		}()
 
-		for {
-			// 获取所有的会话
-			sessions, _ := c.melodyWS.Sessions()
-
-			// 判断 是否存在会话，不存在会话,退出消息循环
-			if len(sessions) <= 0 {
-				return
-			}
-
-			// TODO: 发送消息
-			// 获取系统信息再发送消息
-			c.melodyWS.Broadcast([]byte("你好呀"))
-
-			// TODO: 暂时 写死 5秒
-			time.Sleep(time.Second * 5)
-		}
+		forMsg(c)
 	}(c)
+}
 
+// 循环发送消息
+func forMsg(c *controllerSystem) {
+	for {
+
+		// 判断 是否存在会话，不存在会话,退出消息循环
+		if c.melodyWS.Len() <= 0 {
+			return
+		}
+
+		// 获取系统信息
+		system := util.CreateSystem()
+		data := system.GetSystemInfo()
+
+		b, _ := json.Marshal(data)
+
+		fmt.Println("又发送了信息")
+
+		// 发送消息
+		c.melodyWS.Broadcast(b)
+
+		// TODO: 暂时 写死 5秒
+		time.Sleep(time.Second * 5)
+	}
 }

@@ -20,7 +20,7 @@ func init() {
 }
 
 // 获取验证码   验证码 w 70px h 35px
-func (c controllerLogin) CaptchaHandle(ctx *gin.Context) {
+func (c *controllerLogin) CaptchaHandle(ctx *gin.Context) {
 
 	// 生成验证码
 	cc := util.CreateCaptcha(70, 35)
@@ -38,7 +38,7 @@ func (c controllerLogin) CaptchaHandle(ctx *gin.Context) {
 }
 
 // 登录回调
-func (c controllerLogin) LoginHandle(ctx *gin.Context) {
+func (c *controllerLogin) LoginHandle(ctx *gin.Context) {
 	username := ctx.PostForm("username")
 	password := ctx.PostForm("password")
 	// 验证码 id
@@ -79,7 +79,7 @@ func (c controllerLogin) LoginHandle(ctx *gin.Context) {
 }
 
 // 验证token是否有效
-func (c controllerLogin) VerifyTokenHandle(ctx *gin.Context) {
+func (c *controllerLogin) VerifyTokenHandle(ctx *gin.Context) {
 	// 从请求头中 获取token
 	tokenString := ctx.GetHeader("Authorization")[7:]
 
