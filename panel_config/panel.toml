@@ -1,0 +1,4 @@
+game_serve_path = 'C:\Windows\squad'
+listening_time = 5
+panel_port = 8080
+server_ip = '113.12.25.230'

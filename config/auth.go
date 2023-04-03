@@ -9,8 +9,11 @@ import (
 
 // 权限 用户的信息
 type AuthUser struct {
+	// 用户名
 	Username string
+	// 用户密码
 	Password string
+	// 账号更改的时间
 	Op_time  time.Time
 }
 
@@ -18,7 +21,7 @@ type AuthUser struct {
 var authViper *viper.Viper
 
 // 读取 auth 配置文件
-func (a AuthUser) ReadAuthConfig() AuthUser {
+func (a *AuthUser) ReadAuthConfig() *AuthUser {
 	// 创建配置文件读取器
 	authViper = viper.New()
 

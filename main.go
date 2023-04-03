@@ -1,12 +1,14 @@
 package main
 
 import (
+	"SSPS/config"
 	_ "SSPS/route"
 	"SSPS/router"
+	"fmt"
 )
 
 func main() {
 
 	// 启动gin
-	router.Router.Run(":8080")
+	router.Router.Run(fmt.Sprintf(":%v", config.PanelConf.PanelPort))
 }
