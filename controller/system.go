@@ -35,7 +35,7 @@ func init() {
 
 // 获取系统信息
 func (c *controllerSystem) GetSystemInfo(ctx *gin.Context) {
-	token := ctx.GetHeader("Authorization")[7:]
+	token, _ := ctx.GetQuery("token")
 
 	// 验证token
 	util.UtilJWT.VerifyToken(token)
