@@ -3,7 +3,6 @@ package controller
 import (
 	"SSPS/util"
 	"encoding/json"
-	"fmt"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -36,7 +35,12 @@ func init() {
 
 // 获取系统信息
 func (c *controllerSystem) GetSystemInfo(ctx *gin.Context) {
+	token := ctx.GetHeader("Authorization")[7:]
 
+	// 验证token
+	util.UtilJWT.VerifyToken(token)
+
+	// 鉴权通过
 	// 升级协议 WebSocket
 	c.melodyWS.HandleRequest(ctx.Writer, ctx.Request)
 }
@@ -83,8 +87,6 @@ func forMsg(c *controllerSystem) {
 		data := system.GetSystemInfo()
 
 		b, _ := json.Marshal(data)
-
-		fmt.Println("又发送了信息")
 
 		// 发送消息
 		c.melodyWS.Broadcast(b)

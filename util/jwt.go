@@ -71,7 +71,7 @@ func (u uJWT) VerifyToken(tokenString string) *customClaims {
 	})
 
 	if err != nil {
-		GetError().ServerError(fmt.Sprint("token解析失败,err:", err))
+		GetError().ForbiddenError(fmt.Sprint("token无效,err:", err))
 	}
 
 	// 将token转为 claims

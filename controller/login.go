@@ -100,5 +100,4 @@ func (c *controllerLogin) VerifyTokenHandle(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, util.CreateResponseMsg(http.StatusOK, "token有效", gin.H{
 		"token": tokenString,
 	}))
-
 }
