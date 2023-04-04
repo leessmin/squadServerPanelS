@@ -72,9 +72,9 @@ type System interface {
 // 系统结构体
 type systemInfo struct {
 	// 系统名称
-	SystemName string
+	SystemName string `json:"system_name"`
 	// 系统 架构
-	SA string
+	SA string `json:"sa"`
 }
 
 // 获取系统信息
@@ -91,7 +91,7 @@ func (s *systemInfo) GetInfo() {
 // 负载状态结构体
 type loadedInfo struct {
 	// 负载状态
-	Load *load.AvgStat
+	Load *load.AvgStat `json:"load"`
 }
 
 // 获取系统负载状态
@@ -103,13 +103,13 @@ func (l *loadedInfo) GetInfo() {
 // cpu信息 结构体
 type cpuInfo struct {
 	// cpu名字
-	ModelName string
+	ModelName string `json:"model_name"`
 	// 处理器核心数
-	Core int
+	Core int `json:"core"`
 	// 处理器核心数 含逻辑处理器
-	CoreLogic int
+	CoreLogic int `json:"core_logic"`
 	// cpu占用 率 100% 多个cpu只取第一个
-	Used float64
+	Used float64 `json:"used"`
 }
 
 // 获取cpu状态
@@ -128,11 +128,11 @@ func (c *cpuInfo) GetInfo() {
 // 内存信息
 type memoryInfo struct {
 	// 总内存
-	Total uint64
+	Total uint64 `json:"total"`
 	// 使用的内存
-	Used uint64
+	Used uint64 `json:"used"`
 	// 使用的内存 百分比
-	UsedPercent float64
+	UsedPercent float64 `json:"used_percent"`
 }
 
 // 获取内存信息
@@ -149,11 +149,11 @@ func (m *memoryInfo) GetInfo() {
 // swap信息
 type swapInfo struct {
 	// 总内存
-	Total uint64
+	Total uint64 `json:"total"`
 	// 使用的内存
-	Used uint64
+	Used uint64 `json:"used"`
 	// 使用的内存 百分比
-	UsedPercent float64
+	UsedPercent float64 `json:"used_percent"`
 }
 
 // 获取swap信息
@@ -170,11 +170,11 @@ func (s *swapInfo) GetInfo() {
 // 硬盘信息  只获取系统盘
 type diskInfo struct {
 	// 硬盘总容量
-	Total uint64
+	Total uint64 `json:"total"`
 	// 使用的容量
-	Used uint64
+	Used uint64 `json:"used"`
 	// 使用的容量
-	UsedPercent float64
+	UsedPercent float64 `json:"used_percent"`
 }
 
 // 获取硬盘信息
@@ -193,9 +193,9 @@ func (d *diskInfo) GetInfo() {
 // 网络信息
 type netInfo struct {
 	// 接收的字节数
-	BytesRecv uint64
+	BytesRecv uint64 `json:"bytes_recv"`
 	// 发送的字节数
-	BytesSent uint64
+	BytesSent uint64 `json:"bytes_sent"`
 }
 
 func (ni *netInfo) GetInfo() {

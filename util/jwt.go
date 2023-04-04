@@ -38,8 +38,8 @@ func (u uJWT) CreateJWT(username string, op_time time.Time) (string, error) {
 		Op_time:  op_time,
 		RegisteredClaims: jwt.RegisteredClaims{
 			// 过期时间
-			// TODO:暂定24小时
-			ExpiresAt: jwt.NewNumericDate(time.Now().Add(24 * time.Hour)),
+			// TODO:暂定jwt过期时间为1年
+			ExpiresAt: jwt.NewNumericDate(time.Now().AddDate(1, 0, 0)),
 			IssuedAt:  jwt.NewNumericDate(time.Now()),
 			NotBefore: jwt.NewNumericDate(time.Now()),
 			Issuer:    "squadServerPanelServer",
