@@ -1,8 +1,9 @@
 package config
 
 import (
-	"SSPS/util"
 	"fmt"
+	"io"
+	"net/http"
 
 	"github.com/spf13/viper"
 )
@@ -44,7 +45,7 @@ func init() {
 	PanelConf.ReadPanelConfig()
 
 	// 更新配置文件
-	panelViper.Set("server_ip", util.GetExternalIP())
+	panelViper.Set("server_ip", getExternalIP())
 	panelViper.WriteConfig()
 }
 
@@ -63,4 +64,19 @@ func (p *PanelConfig) ReadPanelConfig() *PanelConfig {
 	p.GameServePath = panelViper.GetString("game_serve_path")
 
 	return p
+}
+
+// 获取外部ip
+func getExternalIP() string {
+	res, err := http.Get("http://myexternalip.com/raw")
+	if err != nil {
+		panic(fmt.Sprintf("获取外部ip出错，err:%v", err))
+	}
+	// 关闭连接
+	defer res.Body.Close()
+
+	body, _ := io.ReadAll(res.Body)
+
+	// 返回外网ip
+	return string(body)
 }
