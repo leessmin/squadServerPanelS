@@ -1,12 +1,13 @@
-package util
+package main
 
 import (
+	"SSPS/util"
 	"fmt"
 	"testing"
 )
 
 func TestReadConfig(t *testing.T) {
-	rh := CreateReadHandle()
+	rh := util.CreateReadHandle()
 
 	// 创建通道
 	ch1 := make(chan string)
@@ -31,4 +32,11 @@ func TestReadConfig(t *testing.T) {
 		// }
 		fmt.Println(data)
 	}
+}
+
+func TestFindContentIndex(t *testing.T) {
+	rh := util.CreateReadHandle()
+
+	i := rh.FindContentIndex("Admins.cfg", "^Group=[A-z]*:([A-z]+,{0,}){0,}([^\\n]*\\/\\/[^\\n]*){0,}")
+	fmt.Println(i)
 }

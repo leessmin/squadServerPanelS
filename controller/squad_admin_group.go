@@ -2,6 +2,7 @@ package controller
 
 import (
 	"SSPS/util"
+	"fmt"
 	"net/http"
 	"strings"
 
@@ -39,6 +40,32 @@ func (c *controllerSquadAdminGroup) GetAdminGroup(ctx *gin.Context) {
 
 	ctx.JSON(http.StatusOK, util.CreateResponseMsg(http.StatusOK, "获取成功", gin.H{
 		"adminGroup": adminGroupArr,
+	}))
+}
+
+// 添加 或 编辑 管理员组
+func (c *controllerSquadAdminGroup) AddEditAdminGroup(ctx *gin.Context) {
+
+	var ag adminGroup
+
+	err := ctx.BindJSON(&ag)
+
+	if err != nil {
+		util.GetError().ParameterError("产生错误，请认检查参数后发送")
+	}
+
+	// 查找 是否存在该组名 存在则修改
+	i := util.CreateReadHandle().FindContentIndex(fmt.Sprintf("^Group=%v:([A-z]+,{0,}){0,}([^\\n]*\\/\\/[^\\n]*){0,}", ag.GroupName), "Admins.cfg")
+
+	fmt.Println(i)
+	if i == -1 {
+		// TODO:修改管理组
+	}else{
+		// TODO:添加管理组
+	}
+
+	ctx.JSON(http.StatusOK, util.CreateResponseMsg(http.StatusOK, "操作成功", gin.H{
+		"obj": ag,
 	}))
 }
 

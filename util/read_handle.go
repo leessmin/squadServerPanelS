@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"os"
 	"path"
+	"regexp"
 	"strings"
 )
 
@@ -61,6 +62,61 @@ func (rh *ReadHandle) ReadConfig(pathStr string, ch chan string) {
 			ch <- line
 		}
 	}(pathStr, ch)
+}
+
+// 正则表达式
+// 匹配： Group=Admin:kick,ban,changemap  // 管理员
+// ^Group=Admin:([A-z]+,{0,}){0,}([^\n]*\/\/[^\n]*){0,}
+
+// 传入正则表达式  pattern 正则表达式
+// 查找符合正则表达式内容的行数
+// 多个内容符合 则 返回最后一个内容的索引
+// 返回 -1 代表不存在内容
+func (rh *ReadHandle) FindContentIndex(pattern, pathStr string) int {
+	// 路径拼接
+	pathStr = rh.basePathJoin(pathStr)
+
+	// 打开文件
+	file, err := os.Open(pathStr)
+	if err != nil {
+		panic(fmt.Sprintf("打开文件失败,err:%v", err))
+	}
+	defer file.Close()
+
+	buf := bufio.NewScanner(file)
+
+	// 内容的 行数
+	index := 1
+	// 存在的内容的行数 多个
+	var indexArr []int
+
+	// 逐行扫描文件
+	for buf.Scan() {
+
+		// 获取当前行文字
+		line := buf.Text()
+
+		isOk, err := regexp.MatchString(pattern, line)
+		if err != nil {
+			panic(fmt.Sprint("使用正则表达式出错,err:", err))
+		}
+
+		// 判断是否符合正则表达式的内容
+		if isOk {
+			// 记录索引
+			indexArr = append(indexArr, index)
+		}
+
+		// 索引++
+		index++
+	}
+
+	// 判断是否有内容
+	if len(indexArr) <= 0 {
+		return -1
+	}
+
+	return indexArr[len(indexArr)-1]
 }
 
 // 拼接路径  传入需要找到的文件，，底层路径为配置文件中的game_serve_path
