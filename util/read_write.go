@@ -111,6 +111,54 @@ func (rw *ReadWrite) InsertLineConfig(fileName string, index int, content string
 	file.WriteString(strings.Join(lineArr, "\n"))
 }
 
+// 修改管理组 替换操作
+// fileName 文件名  index追加的行   content替换的内容
+func (rw *ReadWrite) ReplaceLineConfig(fileName string, index int, content string) {
+	// 路径拼接
+	fileName = rw.basePathJoin(fileName)
+
+	// 打开文件
+	file, err := os.Open(fileName)
+	if err != nil {
+		panic(err)
+	}
+
+	buf := bufio.NewScanner(file)
+
+	// 储存每一行的文本
+	var lineArr []string
+	// 读取的行 索引
+	i := 1
+	for buf.Scan() {
+
+		// 获取当前行文字
+		line := buf.Text()
+
+		// 判断是否到达替换行索引
+		if i == index {
+			// 替换成 content
+			lineArr = append(lineArr, content)
+		} else {
+			lineArr = append(lineArr, line)
+		}
+
+		i++
+	}
+
+	// 读取完毕 关闭文件
+	file.Close()
+
+	// 重新打开文件执行覆盖操作
+	file, err = os.OpenFile(fileName, os.O_WRONLY|os.O_TRUNC|os.O_CREATE, 0644)
+	if err != nil {
+		panic(err)
+	}
+	defer file.Close()
+
+	// 写入文件
+	file.WriteString(strings.Join(lineArr, "\n"))
+}
+
 // 正则表达式
 // 匹配： Group=Admin:kick,ban,changemap  // 管理员
 // ^Group=Admin:([A-z]+,{0,}){0,}([^\n]*\/\/[^\n]*){0,}
