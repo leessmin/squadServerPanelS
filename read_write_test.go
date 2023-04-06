@@ -7,7 +7,7 @@ import (
 )
 
 func TestReadConfig(t *testing.T) {
-	rh := util.CreateReadHandle()
+	rh := util.CreateReadWrite()
 
 	// 创建通道
 	ch1 := make(chan string)
@@ -35,7 +35,7 @@ func TestReadConfig(t *testing.T) {
 }
 
 func TestFindContentIndex(t *testing.T) {
-	rh := util.CreateReadHandle()
+	rh := util.CreateReadWrite()
 
 	i := rh.FindContentIndex("Admins.cfg", "^Group=[A-z]*:([A-z]+,{0,}){0,}([^\\n]*\\/\\/[^\\n]*){0,}")
 	fmt.Println(i)

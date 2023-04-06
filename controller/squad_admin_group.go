@@ -49,31 +49,56 @@ func (c *controllerSquadAdminGroup) AddEditAdminGroup(ctx *gin.Context) {
 	var ag adminGroup
 
 	err := ctx.BindJSON(&ag)
-
 	if err != nil {
-		util.GetError().ParameterError("产生错误，请认检查参数后发送")
+		util.GetError().ParameterError("参数错误，请认检查参数后发送")
 	}
 
-	// 查找 是否存在该组名 存在则修改
-	i := util.CreateReadHandle().FindContentIndex(fmt.Sprintf("^Group=%v:([A-z]+,{0,}){0,}([^\\n]*\\/\\/[^\\n]*){0,}", ag.GroupName), "Admins.cfg")
+	// 查找 组名 是否存在
+	i := util.CreateReadWrite().FindContentIndex(fmt.Sprintf("^Group=%v:([A-z]+,{0,}){0,}([^\\n]*\\/\\/[^\\n]*){0,}", ag.GroupName), "Admins.cfg")
 
-	fmt.Println(i)
+	// 判断否有该组名
 	if i == -1 {
-		// TODO:修改管理组
-	}else{
+		// 不存在该组名
+
+		// 查找管理组的区块
+		ind := util.CreateReadWrite().FindContentIndex("^Group=[A-z]*:([A-z]+,{0,}){0,}([^\\n]*\\/\\/[^\\n]*){0,}", "Admins.cfg")
+
+		// 插入用户组
+		util.CreateReadWrite().InsertLineConfig("Admins.cfg", ind, ag.formatString())
 		// TODO:添加管理组
+		ag.formatString()
+	} else {
+		// TODO:修改管理组
+		ag.formatString()
 	}
 
 	ctx.JSON(http.StatusOK, util.CreateResponseMsg(http.StatusOK, "操作成功", gin.H{
-		"obj": ag,
+		"admin": ag,
 	}))
+}
+
+// 管理组结构体格式化为相应的字符串
+// 如:	Group=MyGroup: pause, demos, changemap // 注释
+func (ag adminGroup) formatString() string {
+
+	var str string
+
+	// 判断是否有备注
+	if strings.TrimSpace(ag.Info) == "" {
+		// 没有备注
+		str = fmt.Sprintf("Group=%v:%v", ag.GroupName, strings.Join(ag.Auth, ","))
+	} else {
+		str = fmt.Sprintf("Group=%v:%v // %v", ag.GroupName, strings.Join(ag.Auth, ","), ag.Info)
+	}
+
+	return str
 }
 
 // 读取并处理 管理员组 AdminGroup
 func readAdminGroup() []adminGroup {
 	ch := make(chan string)
 
-	util.CreateReadHandle().ReadConfig("Admins.cfg", ch)
+	util.CreateReadWrite().ReadConfig("Admins.cfg", ch)
 
 	// 储存adminGroup
 	var adminGroupArr []adminGroup
