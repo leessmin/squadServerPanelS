@@ -61,15 +61,15 @@ func (c *controllerSquadAdminGroup) AddEditAdminGroup(ctx *gin.Context) {
 		// 不存在该组名
 		// 添加管理组
 
-		// 查找管理组的区块
+		// 查找管理组   找到管理组后期向管理组后面添加   未找到管理组直接在最后面添加
 		ind := util.CreateReadWrite().FindContentIndex("^Group=[A-z]*:([A-z]+,{0,}){0,}([^\\n]*\\/\\/[^\\n]*){0,}", "Admins.cfg")
 
 		// 插入用户组
-		util.CreateReadWrite().InsertLineConfig("Admins.cfg", ind, ag.formatString())
+		util.CreateReadWrite().InsertReplaceLineConfig("Admins.cfg", ind, ag.formatString(), util.Insert_Write)
 
 	} else {
 		// 修改管理组
-		util.CreateReadWrite().ReplaceLineConfig("Admins.cfg", i, ag.formatString())
+		util.CreateReadWrite().InsertReplaceLineConfig("Admins.cfg", i, ag.formatString(), util.Replace_Write)
 	}
 
 	ctx.JSON(http.StatusOK, util.CreateResponseMsg(http.StatusOK, "操作成功", gin.H{
@@ -98,7 +98,7 @@ func (ag adminGroup) formatString() string {
 func readAdminGroup() []adminGroup {
 	ch := make(chan string)
 
-	util.CreateReadWrite().ReadConfig("Admins.cfg", ch)
+	util.CreateReadWrite().ReadNotCommentConfig("Admins.cfg", ch)
 
 	// 储存adminGroup
 	var adminGroupArr []adminGroup
