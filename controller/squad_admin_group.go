@@ -64,12 +64,18 @@ func (c *controllerSquadAdminGroup) AddEditAdminGroup(ctx *gin.Context) {
 		// 查找管理组   找到管理组后期向管理组后面添加   未找到管理组直接在最后面添加
 		ind := util.CreateReadWrite().FindContentIndex("^Group=[A-z]*:([A-z]+,{0,}){0,}([^\\n]*\\/\\/[^\\n]*){0,}", "Admins.cfg")
 
-		// 插入用户组
-		util.CreateReadWrite().InsertReplaceLineConfig("Admins.cfg", ind, ag.formatString(), util.Insert_Write)
-
+		// 判断是否已经有用户组   没有用户组  追加到文件末尾处  存在用户组  在用户组下追加
+		if ind == -1 {
+			// 不存在用户组
+			// 追加用户组
+			util.CreateReadWrite().InsertReplaceLineConfig("Admins.cfg", ind, ag.formatString(), &util.AppendLine{})
+		} else {
+			// 插入用户组
+			util.CreateReadWrite().InsertReplaceLineConfig("Admins.cfg", ind, ag.formatString(), &util.InsertLine{})
+		}
 	} else {
 		// 修改管理组
-		util.CreateReadWrite().InsertReplaceLineConfig("Admins.cfg", i, ag.formatString(), util.Replace_Write)
+		util.CreateReadWrite().InsertReplaceLineConfig("Admins.cfg", i, ag.formatString(), &util.ReplaceLine{})
 	}
 
 	ctx.JSON(http.StatusOK, util.CreateResponseMsg(http.StatusOK, "操作成功", gin.H{

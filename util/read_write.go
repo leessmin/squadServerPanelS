@@ -12,14 +12,6 @@ import (
 
 // 读取游戏服务器的配置文件
 
-// 常量
-const (
-	// 插入
-	Insert_Write = iota
-	// 替换
-	Replace_Write
-)
-
 // 读写 结构体
 type ReadWrite struct {
 }
@@ -98,44 +90,79 @@ func (rw *ReadWrite) ReadNotCommentConfig(fileName string, ch chan string) {
 }
 
 // 向配置文件 追加一行  或 替换一行
-// fileName 文件名  index追加的行   content添加的内容   action执行动作 决定该动作是写入还是替换
-func (rw *ReadWrite) InsertReplaceLineConfig(fileName string, index int, content string, action int) {
+// fileName 文件名  index追加的行   content添加的内容   action执行动作 决定该动作是写入还是替换  InsertReplaceHandle
+func (rw *ReadWrite) InsertReplaceLineConfig(fileName string, index int, content string, action InsertReplaceHandle) {
 
 	ch := make(chan string)
 
 	// 读取文件
 	rw.ReadConfig(fileName, ch)
 
+	// 处理 获取到替换的内容
+	str := action.Handle(index, content, &ch)
+
+	// 写入文件
+	rw.coverWrite(fileName, str)
+}
+
+// 替换内容的方法
+type InsertReplaceHandle interface {
+	//     索引 内容     读取到文本的通道
+	Handle(int, string, *chan string) string
+}
+
+// 插入某一行到文件
+type InsertLine struct{}
+
+func (il *InsertLine) Handle(index int, content string, ch *chan string) string {
 	// 储存每一行的文本
 	var lineArr []string
 	// 读取的行 索引
 	i := 1
-
 	for {
 		// 获取数据
-		line, ok := <-ch
+		line, ok := <-*ch
 
 		// 通道关闭 跳出for循环
 		if !ok {
 			break
 		}
 
-		if action == Insert_Write {
-			// 插入
-			lineArr = append(lineArr, line)
+		// 插入
+		lineArr = append(lineArr, line)
 
-			// 判断是否到达追加行索引
-			if i == index {
-				lineArr = append(lineArr, content)
-			}
-		} else if action == Replace_Write {
-			// 判断是否到达替换行索引
-			if i == index {
-				// 替换成 content
-				lineArr = append(lineArr, content)
-			} else {
-				lineArr = append(lineArr, line)
-			}
+		// 判断是否到达追加行索引
+		if i == index {
+			lineArr = append(lineArr, content)
+		}
+
+		i++
+	}
+
+	return strings.Join(lineArr, "\n")
+}
+
+// 替换某一行到文件
+type ReplaceLine struct{}
+
+func (rl *ReplaceLine) Handle(index int, content string, ch *chan string) string {
+	// 储存每一行的文本
+	var lineArr []string
+	// 读取的行 索引
+	i := 1
+	for {
+		// 获取数据
+		line, ok := <-*ch
+
+		// 通道关闭 跳出for循环
+		if !ok {
+			break
+		}
+
+		// 判断是否到达替换行索引
+		if i == index {
+			// 替换成 content
+			lineArr = append(lineArr, content)
 		} else {
 			lineArr = append(lineArr, line)
 		}
@@ -143,8 +170,35 @@ func (rw *ReadWrite) InsertReplaceLineConfig(fileName string, index int, content
 		i++
 	}
 
-	// 写入文件
-	rw.coverWrite(fileName, strings.Join(lineArr, "\n"))
+	return strings.Join(lineArr, "\n")
+}
+
+// 追加新一行
+type AppendLine struct{}
+
+func (al *AppendLine) Handle(index int, content string, ch *chan string) string {
+	// 储存每一行的文本
+	var lineArr []string
+	// 读取的行 索引
+	i := 1
+	for {
+		// 获取数据
+		line, ok := <-*ch
+
+		// 通道关闭 跳出for循环
+		if !ok {
+			break
+		}
+
+		lineArr = append(lineArr, line)
+
+		i++
+	}
+
+	// 向文本末尾处追加一行
+	lineArr = append(lineArr, content)
+
+	return strings.Join(lineArr, "\n")
 }
 
 // 正则表达式
