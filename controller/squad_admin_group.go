@@ -83,7 +83,6 @@ func (c *controllerSquadAdminGroup) AddEditAdminGroup(ctx *gin.Context) {
 	}))
 }
 
-// TODO：未完成连带删除 删除管理组下的管理员
 // 删除 管理组
 func (c *controllerSquadAdminGroup) DelAdminGroup(ctx *gin.Context) {
 	groupName, b := ctx.GetQuery("groupName")
@@ -99,6 +98,9 @@ func (c *controllerSquadAdminGroup) DelAdminGroup(ctx *gin.Context) {
 
 	// 删除 组名
 	util.CreateReadWrite().InsertReplaceLineConfig("Admins.cfg", index, "", &util.DeleteLine{})
+
+	// 删除 组名 下的 管理员
+	util.CreateReadWrite().InsertReplaceLineConfig("Admins.cfg", 0, fmt.Sprintf(`^Admin=[0-9]*:%v`, groupName), &util.DeleteRegular{})
 
 	ctx.JSON(http.StatusOK, util.CreateResponseMsg(http.StatusOK, "操作成功", gin.H{}))
 }

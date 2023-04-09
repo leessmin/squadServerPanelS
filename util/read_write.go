@@ -234,6 +234,42 @@ func (dl *DeleteLine) Handle(index int, content string, ch *chan string) string 
 	return strings.Join(lineArr, "\n")
 }
 
+// 删除 符合 正则表达式的内容
+type DeleteRegular struct{}
+
+func (dr *DeleteRegular) Handle(index int, pattern string, ch *chan string) string {
+	// 储存每一行的文本
+	var lineArr []string
+	// 读取的行 索引
+	i := 1
+	for ; ; i++ {
+		// 获取数据
+		line, ok := <-*ch
+
+		// 通道关闭 跳出for循环
+		if !ok {
+			break
+		}
+
+		isOk, err := regexp.MatchString(pattern, line)
+		if err != nil {
+			panic(fmt.Sprint("使用正则表达式出错,err:", err))
+		}
+
+		// 判断是否符合正则表达式的内容
+		if isOk {
+			// 符合正则表达式 删除
+			// 跳过这次for循环
+			continue
+		}
+
+		lineArr = append(lineArr, line)
+
+	}
+
+	return strings.Join(lineArr, "\n")
+}
+
 // 正则表达式
 // 匹配： Group=Admin:kick,ban,changemap  // 管理员
 // ^Group=Admin:([A-z]+,{0,}){0,}([^\n]*\/\/[^\n]*){0,}
