@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"os"
 	"path"
-	"regexp"
 	"strings"
 	"sync"
 )
@@ -251,10 +250,7 @@ func (dr *DeleteRegular) Handle(index int, pattern string, ch *chan string) stri
 			break
 		}
 
-		isOk, err := regexp.MatchString(pattern, line)
-		if err != nil {
-			panic(fmt.Sprint("使用正则表达式出错,err:", err))
-		}
+		isOk := CreateRegexp().VerifyStr(pattern, line)
 
 		// 判断是否符合正则表达式的内容
 		if isOk {
@@ -296,10 +292,7 @@ func (rw *ReadWrite) FindContentIndex(pattern, fileName string) int {
 			break
 		}
 
-		isOk, err := regexp.MatchString(pattern, line)
-		if err != nil {
-			panic(fmt.Sprint("使用正则表达式出错,err:", err))
-		}
+		isOk := CreateRegexp().VerifyStr(pattern, line)
 
 		// 判断是否符合正则表达式的内容
 		if isOk {
