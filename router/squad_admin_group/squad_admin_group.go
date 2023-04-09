@@ -8,14 +8,14 @@ import (
 // 操作 管理组
 
 func init() {
-	adminAdminGroup := router.BasicAuth.Group("/adminGroup")
+	squadAdminGroup := router.BasicAuth.Group("/adminGroup")
 
 	// 获取管理员组
-	adminAdminGroup.GET("/get", controller.SquadAdminGroup.GetAdminGroup)
+	squadAdminGroup.GET("/get", controller.SquadAdminGroup.GetAdminGroup)
 
 	// 添加 或 修改 管理员组
-	adminAdminGroup.POST("/addEdit", controller.SquadAdminGroup.AddEditAdminGroup)
+	squadAdminGroup.POST("/addEdit", controller.SquadAdminGroup.AddEditAdminGroup)
 
 	// 删除 管理组
-	adminAdminGroup.DELETE("/del", controller.SquadAdminGroup.DelAdminGroup)
+	squadAdminGroup.DELETE("/del", controller.SquadAdminGroup.DelAdminGroup)
 }

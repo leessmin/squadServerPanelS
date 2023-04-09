@@ -22,7 +22,7 @@ func init() {
 	SquadAdminGroup = controllerSquadAdminGroup{}
 }
 
-// 管理组 的实例
+// 管理组 映射
 type adminGroup struct {
 	// 组名
 	GroupName string `json:"groupName"`
@@ -104,23 +104,6 @@ func (c *controllerSquadAdminGroup) DelAdminGroup(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, util.CreateResponseMsg(http.StatusOK, "操作成功", gin.H{}))
 }
 
-// 管理组结构体格式化为相应的字符串
-// 如:	Group=MyGroup: pause, demos, changemap // 注释
-func (ag adminGroup) formatString() string {
-
-	var str string
-
-	// 判断是否有备注
-	if strings.TrimSpace(ag.Info) == "" {
-		// 没有备注
-		str = fmt.Sprintf("Group=%v:%v", ag.GroupName, strings.Join(ag.Auth, ","))
-	} else {
-		str = fmt.Sprintf("Group=%v:%v // %v", ag.GroupName, strings.Join(ag.Auth, ","), ag.Info)
-	}
-
-	return str
-}
-
 // 读取并处理 管理员组 AdminGroup
 func readAdminGroup() []adminGroup {
 	ch := make(chan string)
@@ -139,25 +122,43 @@ func readAdminGroup() []adminGroup {
 			break
 		}
 
+		ag := &adminGroup{}
 		// 将 string 转 adminGroup
-		ag, err := formatStrToAdminGroup(strings.TrimSpace(line))
+		err := ag.formatStrToAdminGroup(strings.TrimSpace(line))
 		if err != nil {
 			continue
 		}
 
-		adminGroupArr = append(adminGroupArr, ag)
+		adminGroupArr = append(adminGroupArr, *ag)
 	}
 
 	return adminGroupArr
 }
 
+// 管理组结构体格式化为相应的字符串
+// 如:	Group=MyGroup: pause, demos, changemap // 注释
+func (ag adminGroup) formatString() string {
+
+	var str string
+
+	// 判断是否有备注
+	if strings.TrimSpace(ag.Info) == "" {
+		// 没有备注
+		str = fmt.Sprintf("Group=%v:%v", ag.GroupName, strings.Join(ag.Auth, ","))
+	} else {
+		str = fmt.Sprintf("Group=%v:%v // %v", ag.GroupName, strings.Join(ag.Auth, ","), ag.Info)
+	}
+
+	return str
+}
+
 // 处理 管理组 的格式  字符串转AdminGroup
 // 如果字符串开头不等于Group= 则抛出异常
-func formatStrToAdminGroup(str string) (adminGroup, error) {
+func (ag *adminGroup) formatStrToAdminGroup(str string) error {
 	// 判断前缀是否等于Group=
 	// 不等于管理组说明不是与管理组有关的设置 抛出错误
 	if str[0:6] != "Group=" {
-		return adminGroup{}, fmt.Errorf("前缀不为Group")
+		return fmt.Errorf("前缀不为Group")
 	}
 
 	// Group=Admin:kick,ban,changemap  // 管理员
@@ -195,11 +196,9 @@ func formatStrToAdminGroup(str string) (adminGroup, error) {
 	}
 
 	// 将 处理好的结果 储存到实例
-	ag := adminGroup{
-		GroupName: groupName,
-		Info:      info,
-		Auth:      auth,
-	}
+	ag.GroupName = groupName
+	ag.Info = info
+	ag.Auth = auth
 
-	return ag, nil
+	return nil
 }
