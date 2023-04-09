@@ -83,6 +83,27 @@ func (c *controllerSquadAdminGroup) AddEditAdminGroup(ctx *gin.Context) {
 	}))
 }
 
+// TODO：未完成连带删除 删除管理组下的管理员
+// 删除 管理组
+func (c *controllerSquadAdminGroup) DelAdminGroup(ctx *gin.Context) {
+	groupName, b := ctx.GetQuery("groupName")
+	if !b {
+		util.GetError().ParameterError("参数不完整")
+	}
+
+	// 查找 组名 的索引
+	index := util.CreateReadWrite().FindContentIndex(fmt.Sprintf("^Group=%v:([A-z]+,{0,}){0,}([^\\n]*\\/\\/[^\\n]*){0,}", groupName), "Admins.cfg")
+
+	if index <= -1 {
+		util.GetError().ParameterError(fmt.Sprintf("未找到组名为：“%v”的管理组", groupName))
+	}
+
+	// 删除 组名
+	util.CreateReadWrite().InsertReplaceLineConfig("Admins.cfg", index, "", &util.DeleteLine{})
+
+	ctx.JSON(http.StatusOK, util.CreateResponseMsg(http.StatusOK, "操作成功", gin.H{}))
+}
+
 // 管理组结构体格式化为相应的字符串
 // 如:	Group=MyGroup: pause, demos, changemap // 注释
 func (ag adminGroup) formatString() string {

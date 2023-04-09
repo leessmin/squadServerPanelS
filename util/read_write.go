@@ -8,6 +8,7 @@ import (
 	"path"
 	"regexp"
 	"strings"
+	"sync"
 )
 
 // 读取游戏服务器的配置文件
@@ -16,11 +17,14 @@ import (
 type ReadWrite struct {
 }
 
-var readWrite *ReadWrite
+var (
+	readWrite *ReadWrite
+	onceRW    sync.Once
+)
 
 // 单例模式  创建一个  读取游戏服务器的配置文件  结构体实例
 func CreateReadWrite() *ReadWrite {
-	once.Do(func() {
+	onceRW.Do(func() {
 		readWrite = &ReadWrite{}
 	})
 
@@ -197,6 +201,35 @@ func (al *AppendLine) Handle(index int, content string, ch *chan string) string 
 
 	// 向文本末尾处追加一行
 	lineArr = append(lineArr, content)
+
+	return strings.Join(lineArr, "\n")
+}
+
+// 删除 文件中的 一行
+type DeleteLine struct{}
+
+func (dl *DeleteLine) Handle(index int, content string, ch *chan string) string {
+	// 储存每一行的文本
+	var lineArr []string
+	// 读取的行 索引
+	i := 1
+	for ; ; i++ {
+		// 获取数据
+		line, ok := <-*ch
+
+		// 通道关闭 跳出for循环
+		if !ok {
+			break
+		}
+
+		// 判断 是否为删除的 索引
+		// 是则不储存当前行的文本
+		if index == i {
+			continue
+		}
+		lineArr = append(lineArr, line)
+
+	}
 
 	return strings.Join(lineArr, "\n")
 }

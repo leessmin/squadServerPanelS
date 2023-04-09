@@ -15,4 +15,7 @@ func init() {
 
 	// 添加 或 修改 管理员组
 	adminAdminGroup.POST("/addEdit", controller.SquadAdminGroup.AddEditAdminGroup)
+
+	// 删除 管理组
+	adminAdminGroup.DELETE("/del", controller.SquadAdminGroup.DelAdminGroup)
 }

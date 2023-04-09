@@ -38,7 +38,7 @@ type errorHandle interface {
 }
 
 var (
-	once     sync.Once
+	onceErr     sync.Once
 	handling errorHandle
 )
 
@@ -49,38 +49,38 @@ type errorHandling struct {
 // 单例模式 只存在一个错误处理结构体
 // 获取 错误处理 结构体
 func GetError() errorHandle {
-	once.Do(func() {
+	onceErr.Do(func() {
 		handling = &errorHandling{}
 	})
 	return handling
 }
 
 // 500 错误处理
-func (e errorHandling) ServerError(msg string) {
+func (e *errorHandling) ServerError(msg string) {
 	panic(NewErrorInfo(http.StatusInternalServerError, msg))
 }
 
 // 404 错误
-func (e errorHandling) NotFound(msg string) {
+func (e *errorHandling) NotFound(msg string) {
 	panic(NewErrorInfo(http.StatusNotFound, msg))
 }
 
 // 400 参数错误
-func (e errorHandling) ParameterError(msg string) {
+func (e *errorHandling) ParameterError(msg string) {
 	panic(NewErrorInfo(http.StatusBadRequest, msg))
 }
 
 // 401 登录失败
-func (e errorHandling) UnauthorizedError(msg string) {
+func (e *errorHandling) UnauthorizedError(msg string) {
 	panic(NewErrorInfo(http.StatusUnauthorized, msg))
 }
 
 // 403 权限认证不通过
-func (e errorHandling) ForbiddenError(msg string) {
+func (e *errorHandling) ForbiddenError(msg string) {
 	panic(NewErrorInfo(http.StatusForbidden, msg))
 }
 
 // 自定义错误  需要自行准备http code, msg
-func (e errorHandling) MakeError(code int, msg string) {
+func (e *errorHandling) MakeError(code int, msg string) {
 	panic(NewErrorInfo(http.StatusForbidden, msg))
 }
