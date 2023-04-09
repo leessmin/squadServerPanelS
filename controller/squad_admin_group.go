@@ -93,7 +93,6 @@ func (c *controllerSquadAdminGroup) DelAdminGroup(ctx *gin.Context) {
 
 	// 查找 组名 的索引
 	index := util.CreateReadWrite().FindContentIndex(fmt.Sprintf("^Group=%v:([A-z]+,{0,}){0,}([^\\n]*\\/\\/[^\\n]*){0,}", groupName), "Admins.cfg")
-
 	if index <= -1 {
 		util.GetError().ParameterError(fmt.Sprintf("未找到组名为：“%v”的管理组", groupName))
 	}

@@ -76,6 +76,25 @@ func (c *controllerSquadAdminUser) AddEditAdminUser(ctx *gin.Context) {
 	}))
 }
 
+// 删除 管理员
+func (c *controllerSquadAdminUser) DelAdminUser(ctx *gin.Context) {
+	steamId, b := ctx.GetQuery("steamId")
+	if !b {
+		util.GetError().ParameterError("参数不完整")
+	}
+
+	// 查找是否有该管理员
+	i := util.CreateReadWrite().FindContentIndex(fmt.Sprintf(`^Admin=%v:[a-zA-Z0-9]*.*`, steamId), "Admins.cfg")
+	if i <= -1 {
+		util.GetError().ParameterError(fmt.Sprintf("未找到steamId为：“%v”的管理员", steamId))
+	}
+
+	// 删除 管理员
+	util.CreateReadWrite().InsertReplaceLineConfig("Admins.cfg", i, "", &util.DeleteLine{})
+
+	ctx.JSON(http.StatusOK, util.CreateResponseMsg(http.StatusOK, "操作成功", gin.H{}))
+}
+
 // 读取管理员
 func readAdminUser() []adminUser {
 	ch := make(chan string)

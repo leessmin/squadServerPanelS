@@ -14,4 +14,7 @@ func init() {
 
 	// 添加 或 修改 管理员
 	squadAdminUser.POST("/addEdit", controller.SquadAdminUser.AddEditAdminUser)
+
+	// 删除 管理组
+	squadAdminUser.DELETE("/del", controller.SquadAdminUser.DelAdminUser)
 }
