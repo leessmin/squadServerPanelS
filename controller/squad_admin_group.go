@@ -132,62 +132,74 @@ func readAdminGroup() []adminGroup {
 
 	for {
 		// 获取数据
-		data, ok := <-ch
+		line, ok := <-ch
 
 		// 通道关闭 跳出for循环
 		if !ok {
 			break
 		}
 
-		// 判断前缀是否等于Group=
-		// 不等于管理组说明不是与管理组有关的设置 跳过
-		if data[0:6] != "Group=" {
+		// 将 string 转 adminGroup
+		ag, err := formatStrToAdminGroup(strings.TrimSpace(line))
+		if err != nil {
 			continue
-		}
-
-		// Group=Admin:kick,ban,changemap  // 管理员
-		// 分割为 [Group, Admin:kick,ban,changemap  // 管理员]
-		strArr := strings.Split(data, "=")
-
-		// Admin:kick,ban,changemap  // 管理员
-		// 分割为 [Admin:kick,ban,changemap, 管理员]
-		strArr = strings.Split(strArr[1], "//")
-
-		// 备注
-		var info string
-		// 判断是否存在 // 备注信息
-		// 不存在备注信息，不添加备注 默认备注为""
-		if len(strArr) > 1 {
-			// 获取 到 备注
-			info = strings.TrimSpace(strArr[1])
-		}
-
-		// 继续分割
-		// Admin:kick,ban,changemap
-		// 分割为 [Admin, kick,ban,changemap]
-		strArr = strings.Split(strArr[0], ":")
-
-		// 获取 管理组 组名
-		groupName := strings.TrimSpace(strArr[0])
-
-		// 继续分割
-		// kick,ban,changemap
-		// 分割为 [kick, ban, changemap]
-		auth := strings.Split(strArr[1], ",")
-		// 遍历 auth 去除两端的空格
-		for key, v := range auth {
-			auth[key] = strings.TrimSpace(v)
-		}
-
-		// 将 处理好的结果 储存到实例
-		ag := adminGroup{
-			GroupName: groupName,
-			Info:      info,
-			Auth:      auth,
 		}
 
 		adminGroupArr = append(adminGroupArr, ag)
 	}
 
 	return adminGroupArr
+}
+
+// 处理 管理组 的格式  字符串转AdminGroup
+// 如果字符串开头不等于Group= 则抛出异常
+func formatStrToAdminGroup(str string) (adminGroup, error) {
+	// 判断前缀是否等于Group=
+	// 不等于管理组说明不是与管理组有关的设置 抛出错误
+	if str[0:6] != "Group=" {
+		return adminGroup{}, fmt.Errorf("前缀不为Group")
+	}
+
+	// Group=Admin:kick,ban,changemap  // 管理员
+	// 分割为 [Group, Admin:kick,ban,changemap  // 管理员]
+	strArr := strings.Split(str, "=")
+
+	// Admin:kick,ban,changemap  // 管理员
+	// 分割为 [Admin:kick,ban,changemap, 管理员]
+	strArr = strings.Split(strArr[1], "//")
+
+	// 备注
+	var info string
+	// 判断是否存在 // 备注信息
+	// 不存在备注信息，不添加备注 默认备注为""
+	if len(strArr) > 1 {
+		// 获取 到 备注
+		info = strings.TrimSpace(strArr[1])
+	}
+
+	// 继续分割
+	// Admin:kick,ban,changemap
+	// 分割为 [Admin, kick,ban,changemap]
+	strArr = strings.Split(strArr[0], ":")
+
+	// 获取 管理组 组名
+	groupName := strings.TrimSpace(strArr[0])
+
+	// 继续分割
+	// kick,ban,changemap
+	// 分割为 [kick, ban, changemap]
+	auth := strings.Split(strArr[1], ",")
+	// 遍历 auth 去除两端的空格
+	for key, v := range auth {
+		auth[key] = strings.TrimSpace(v)
+	}
+
+	// 将 处理好的结果 储存到实例
+	ag := adminGroup{
+		GroupName: groupName,
+		Info:      info,
+		Auth:      auth,
+	}
+
+	return ag, nil
 }
