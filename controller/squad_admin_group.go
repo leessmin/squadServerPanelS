@@ -54,7 +54,7 @@ func (c *controllerSquadAdminGroup) AddEditAdminGroup(ctx *gin.Context) {
 	}
 
 	// 查找 组名 是否存在
-	i := util.CreateReadWrite().FindContentIndex(fmt.Sprintf("^Group=%v:([A-z]+,{0,}){0,}([^\\n]*\\/\\/[^\\n]*){0,}", ag.GroupName), "Admins.cfg")
+	i := util.CreateReadWrite().FindContentIndex(fmt.Sprintf(`^Group=%v:([A-z]+,{0,}){0,}([^\n]*\/\/[^\n]*){0,}`, ag.GroupName), "Admins.cfg")
 
 	// 判断否有该组名
 	if i == -1 {
@@ -62,7 +62,7 @@ func (c *controllerSquadAdminGroup) AddEditAdminGroup(ctx *gin.Context) {
 		// 添加管理组
 
 		// 查找管理组   找到管理组后期向管理组后面添加   未找到管理组直接在最后面添加
-		ind := util.CreateReadWrite().FindContentIndex("^Group=[A-z]*:([A-z]+,{0,}){0,}([^\\n]*\\/\\/[^\\n]*){0,}", "Admins.cfg")
+		ind := util.CreateReadWrite().FindContentIndex(`^Group=[A-z]*:([A-z]+,{0,}){0,}([^\n]*\/\/[^\n]*){0,}`, "Admins.cfg")
 
 		// 判断是否已经有用户组   没有用户组  追加到文件末尾处  存在用户组  在用户组下追加
 		if ind == -1 {
@@ -125,8 +125,8 @@ func readAdminGroup() []adminGroup {
 
 		ag := &adminGroup{}
 		// 将 string 转 adminGroup
-		err := ag.formatStrToAdminGroup(strings.TrimSpace(line))
-		if err != nil {
+		b := ag.formatStrToAdminGroup(strings.TrimSpace(line))
+		if !b {
 			continue
 		}
 
@@ -155,45 +155,34 @@ func (ag adminGroup) formatString() string {
 
 // 处理 管理组 的格式  字符串转AdminGroup
 // 如果字符串开头不等于Group= 则抛出异常
-func (ag *adminGroup) formatStrToAdminGroup(str string) error {
-	// 判断前缀是否等于Group=
-	// 不等于管理组说明不是与管理组有关的设置 抛出错误
-	if str[0:6] != "Group=" {
-		return fmt.Errorf("前缀不为Group")
+func (ag *adminGroup) formatStrToAdminGroup(str string) bool {
+
+	// 判断是否符合 管理员格式
+	isOk := util.CreateRegexp().VerifyStr(`^Group=[A-z]*:([A-z]+,{0,}){0,}([^\n]*\/\/[^\n]*){0,}`, str)
+	if !isOk {
+		return false
 	}
 
-	// Group=Admin:kick,ban,changemap  // 管理员
-	// 分割为 [Group, Admin:kick,ban,changemap  // 管理员]
-	strArr := strings.Split(str, "=")
+	// 获取 管理组 名
+	groupNameArr, _ := util.CreateRegexp().FindString(`(?<=Group=).*?(?=:)`, str)
+	groupName := groupNameArr[0]
 
-	// Admin:kick,ban,changemap  // 管理员
-	// 分割为 [Admin:kick,ban,changemap, 管理员]
-	strArr = strings.Split(strArr[1], "//")
+	// 获取备注
+	infoArr, b := util.CreateRegexp().FindString(`(?<=//).*`, str)
 
-	// 备注
+	var auth []string
 	var info string
-	// 判断是否存在 // 备注信息
-	// 不存在备注信息，不添加备注 默认备注为""
-	if len(strArr) > 1 {
-		// 获取 到 备注
-		info = strings.TrimSpace(strArr[1])
-	}
-
-	// 继续分割
-	// Admin:kick,ban,changemap
-	// 分割为 [Admin, kick,ban,changemap]
-	strArr = strings.Split(strArr[0], ":")
-
-	// 获取 管理组 组名
-	groupName := strings.TrimSpace(strArr[0])
-
-	// 继续分割
-	// kick,ban,changemap
-	// 分割为 [kick, ban, changemap]
-	auth := strings.Split(strArr[1], ",")
-	// 遍历 auth 去除两端的空格
-	for key, v := range auth {
-		auth[key] = strings.TrimSpace(v)
+	// 判断是否找到备注
+	if b {
+		// 找到备注
+		info = infoArr[0]
+		// 查找管理管理组的权限
+		arr, _ := util.CreateRegexp().FindString(`(?<=:).*?(?=//)`, str)
+		auth = strings.Split(arr[0], ",")
+	} else {
+		// 查找管理管理组的权限
+		arr, _ := util.CreateRegexp().FindString(`(?<=:).*`, str)
+		auth = strings.Split(arr[0], ",")
 	}
 
 	// 将 处理好的结果 储存到实例
@@ -201,5 +190,5 @@ func (ag *adminGroup) formatStrToAdminGroup(str string) error {
 	ag.Info = info
 	ag.Auth = auth
 
-	return nil
+	return true
 }

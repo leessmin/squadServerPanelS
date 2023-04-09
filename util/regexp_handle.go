@@ -27,7 +27,7 @@ func CreateRegexp() *Regexp3 {
 // 符合 true   不符合 false
 func (r *Regexp3) VerifyStr(pattern, str string) bool {
 	// 判断是否符合正则表达式
-	re := regexp2.MustCompile(`(?<=Admin=).*?(?=:)`, 0)
+	re := regexp2.MustCompile(pattern, 0)
 	// 判断 字符串是否符合 正则表达式
 	isOk, _ := re.MatchString(str)
 

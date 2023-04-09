@@ -149,9 +149,9 @@ func (au *adminUser) formatStrToAdminUser(str string) bool {
 
 	var groupNameArr []string
 	var info string
-	// 判断是否找到注释
+	// 判断是否找到备注
 	if b {
-		// 找到注释
+		// 找到备注
 		info = infoArr[0]
 		// 查找管理员所属的用户组
 		groupNameArr, _ = util.CreateRegexp().FindString(`(?<=:).*?(?=//)`, str)
