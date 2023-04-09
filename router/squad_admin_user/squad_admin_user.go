@@ -11,4 +11,7 @@ func init() {
 
 	// 获取管理员
 	squadAdminUser.GET("/get", controller.SquadAdminUser.GetAdminUser)
+
+	// 添加 或 修改 管理员
+	squadAdminUser.POST("/addEdit", controller.SquadAdminUser.AddEditAdminUser)
 }

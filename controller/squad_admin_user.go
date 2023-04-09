@@ -2,7 +2,9 @@ package controller
 
 import (
 	"SSPS/util"
+	"fmt"
 	"net/http"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 )
@@ -38,6 +40,39 @@ func (c *controllerSquadAdminUser) GetAdminUser(ctx *gin.Context) {
 
 	ctx.JSON(http.StatusOK, util.CreateResponseMsg(http.StatusOK, "获取成功", gin.H{
 		"adminUser": adminUserArr,
+	}))
+}
+
+// 添加 或 编辑 管理员
+func (c *controllerSquadAdminUser) AddEditAdminUser(ctx *gin.Context) {
+	var au adminUser
+
+	err := ctx.BindJSON(&au)
+	if err != nil {
+		util.GetError().ParameterError("参数错误，请认检查参数后发送")
+	}
+
+	// 查找 组名 是否存在
+	i := util.CreateReadWrite().FindContentIndex(fmt.Sprintf("^Group=%v:([A-z]+,{0,}){0,}([^\\n]*\\/\\/[^\\n]*){0,}", au.GroupName), "Admins.cfg")
+
+	if i == -1 {
+		util.GetError().ParameterError(fmt.Sprintf("没有找到“%v”的管理组", au.GroupName))
+	}
+
+	// 查找是否有该管理员
+	ii := util.CreateReadWrite().FindContentIndex(fmt.Sprintf(`^Admin=%v:[a-zA-Z0-9]*.*`, au.SteamId), "Admins.cfg")
+	if ii == -1 {
+		// 不存在
+		// 添加
+		util.CreateReadWrite().InsertReplaceLineConfig("Admins.cfg", 0, au.formatString(), &util.AppendLine{})
+	} else {
+		// 存在
+		// 修改
+		util.CreateReadWrite().InsertReplaceLineConfig("Admins.cfg", ii, au.formatString(), &util.ReplaceLine{})
+	}
+
+	ctx.JSON(http.StatusOK, util.CreateResponseMsg(http.StatusOK, "操作成功", gin.H{
+		"adminUser": au,
 	}))
 }
 
@@ -81,7 +116,7 @@ func readAdminUser() []adminUser {
 func (au *adminUser) formatStrToAdminUser(str string) bool {
 
 	// 判断是否符合 管理员格式
-	isOk := util.CreateRegexp().VerifyStr(`^Admin=[0-9]*:[a-zA-Z0-9]*.*(\/\/[^\n]*)`, str)
+	isOk := util.CreateRegexp().VerifyStr(`^Admin=[0-9]*:[a-zA-Z0-9]*.*(\/\/[^\n]*)?`, str)
 	if !isOk {
 		return false
 	}
@@ -113,4 +148,21 @@ func (au *adminUser) formatStrToAdminUser(str string) bool {
 	au.GroupName = groupName
 
 	return true
+}
+
+// 管理组结构体格式化为相应的字符串
+// 如:	Admin=123456:Admin // 备注
+func (au adminUser) formatString() string {
+
+	var str string
+
+	// 判断是否有备注
+	if strings.TrimSpace(au.Info) == "" {
+		// 没有备注
+		str = fmt.Sprintf("Group=%v:%v", au.SteamId, au.GroupName)
+	} else {
+		str = fmt.Sprintf("Admin=%v:%v // %v", au.SteamId, au.GroupName, au.Info)
+	}
+
+	return str
 }

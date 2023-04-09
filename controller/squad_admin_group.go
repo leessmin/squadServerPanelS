@@ -79,7 +79,7 @@ func (c *controllerSquadAdminGroup) AddEditAdminGroup(ctx *gin.Context) {
 	}
 
 	ctx.JSON(http.StatusOK, util.CreateResponseMsg(http.StatusOK, "操作成功", gin.H{
-		"admin": ag,
+		"adminGroup": ag,
 	}))
 }
 
@@ -136,7 +136,7 @@ func readAdminGroup() []adminGroup {
 }
 
 // 管理组结构体格式化为相应的字符串
-// 如:	Group=MyGroup: pause, demos, changemap // 注释
+// 如:	Group=MyGroup: pause, demos, changemap // 备注
 func (ag adminGroup) formatString() string {
 
 	var str string
