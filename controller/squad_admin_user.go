@@ -78,19 +78,28 @@ func (c *controllerSquadAdminUser) AddEditAdminUser(ctx *gin.Context) {
 
 // 删除 管理员
 func (c *controllerSquadAdminUser) DelAdminUser(ctx *gin.Context) {
-	steamId, b := ctx.GetQuery("steamId")
+	steamIds, b := ctx.GetQueryArray("steamIds")
 	if !b {
 		util.GetError().ParameterError("参数不完整")
 	}
 
-	// 查找是否有该管理员
-	i := util.CreateReadWrite().FindContentIndex(fmt.Sprintf(`^Admin=%v:[a-zA-Z0-9]*.*`, steamId), "Admins.cfg")
-	if i <= -1 {
-		util.GetError().ParameterError(fmt.Sprintf("未找到steamId为：“%v”的管理员", steamId))
+	// 储存 删除的 行 的索引
+	var indexArr []int
+	for _, steamId := range steamIds {
+		// 查找是否有该管理员
+		i := util.CreateReadWrite().FindContentIndex(fmt.Sprintf(`^Admin=%v:[a-zA-Z0-9]*.*`, steamId), "Admins.cfg")
+		if i <= -1 {
+			util.GetError().ParameterError(fmt.Sprintf("未找到steamId为：“%v”的管理员", steamId))
+		}
+
+		indexArr = append(indexArr, i)
 	}
 
-	// 删除 管理员
-	util.CreateReadWrite().InsertReplaceLineConfig("Admins.cfg", i, "", &util.DeleteLine{})
+	// 批量删除
+	for _, i := range indexArr {
+		// 删除 管理员
+		util.CreateReadWrite().InsertReplaceLineConfig("Admins.cfg", i, "", &util.DeleteLine{})
+	}
 
 	ctx.JSON(http.StatusOK, util.CreateResponseMsg(http.StatusOK, "操作成功", gin.H{}))
 }
