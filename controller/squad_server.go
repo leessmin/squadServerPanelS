@@ -2,6 +2,8 @@ package controller
 
 import (
 	"SSPS/util"
+	"encoding/json"
+	"fmt"
 	"net/http"
 	"strings"
 
@@ -61,6 +63,26 @@ func (c *controllerSquadServer) GetSquadServer(ctx *gin.Context) {
 	}))
 }
 
+// 修改服务器配置
+func (c *controllerSquadServer) EditSquadServer(ctx *gin.Context) {
+	// 接收 raw json数据
+	cw, err := ctx.GetRawData()
+	if err != nil {
+		util.GetError().ParameterError("参数错误，请认检查参数后发送")
+	}
+
+	// 储存json数据
+	mpaCfg := make(map[string]interface{})
+	// 将json数据转换成map
+	json.Unmarshal(cw, &mpaCfg)
+
+	modifySquadServer(mpaCfg)
+
+	ctx.JSON(http.StatusOK, util.CreateResponseMsg(http.StatusOK, "操作成功", gin.H{
+		"config": mpaCfg,
+	}))
+}
+
 // 读取服务器配置文件
 func readSquadServer() serverCfg {
 	ch := make(chan string)
@@ -107,4 +129,21 @@ func readSquadServer() serverCfg {
 		panic(err)
 	}
 	return cfg
+}
+
+// 修改 服务器配置
+func modifySquadServer(m map[string]interface{}) {
+	// 储存需要修改的索引 和 修改的值
+	var indexM map[int]string = make(map[int]string)
+	// 遍历 需要修改的 map
+	for key, v := range m {
+		i := util.CreateReadWrite().FindContentIndex(fmt.Sprintf(`^%v.*`, key), "Server.cfg")
+		indexM[i] = fmt.Sprintf(`%v=%v`, key, v)
+	}
+
+	// 遍历 indexM 修改值
+	for i, v := range indexM {
+		// 修改
+		util.CreateReadWrite().InsertReplaceLineConfig("Server.cfg", i, v, &util.ReplaceLine{})
+	}
 }

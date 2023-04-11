@@ -11,4 +11,7 @@ func init() {
 
 	// 获取配置信息
 	serverApi.GET("/get", controller.SquadServer.GetSquadServer)
+
+	// 修改服务器配置
+	serverApi.POST("/edit", controller.SquadServer.EditSquadServer)
 }
