@@ -4,6 +4,8 @@
         "dchest",
         "dlclark",
         "gopsutil",
+        "mapstructure",
+        "mitchellh",
         "Mountpoint",
         "olahol",
         "shirou",
