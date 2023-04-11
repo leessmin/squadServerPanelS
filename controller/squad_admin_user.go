@@ -33,8 +33,6 @@ type adminUser struct {
 
 // 获取管理员
 func (c *controllerSquadAdminUser) GetAdminUser(ctx *gin.Context) {
-	// readAdminUser()
-
 	// 读取管理员名单
 	adminUserArr := readAdminUser()
 
@@ -149,7 +147,7 @@ func (au *adminUser) formatStrToAdminUser(str string) bool {
 		return false
 	}
 
-	// 获取steam id
+	// 获取 管理员 steam id
 	steamIdArr, _ := util.CreateRegexp().FindString(`(?<=Admin=).*?(?=:)`, str)
 	steamId := steamIdArr[0]
 
