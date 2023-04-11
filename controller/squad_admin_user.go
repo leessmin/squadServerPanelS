@@ -93,10 +93,13 @@ func (c *controllerSquadAdminUser) DelAdminUser(ctx *gin.Context) {
 		indexArr = append(indexArr, i)
 	}
 
+	// 删除的行数
+	var delLine int = 0
 	// 批量删除
 	for _, i := range indexArr {
 		// 删除 管理员
-		util.CreateReadWrite().InsertReplaceLineConfig("Admins.cfg", i, "", &util.DeleteLine{})
+		util.CreateReadWrite().InsertReplaceLineConfig("Admins.cfg", i-delLine, "", &util.DeleteLine{})
+		delLine++
 	}
 
 	ctx.JSON(http.StatusOK, util.CreateResponseMsg(http.StatusOK, "操作成功", gin.H{}))

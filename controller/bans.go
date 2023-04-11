@@ -2,7 +2,9 @@ package controller
 
 import (
 	"SSPS/util"
+	"fmt"
 	"net/http"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 )
@@ -37,7 +39,64 @@ func (c *controllerBans) GetBansPlayer(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, util.CreateResponseMsg(http.StatusOK, "获取成功", gin.H{
 		"bansPlayers": bansPlayerArr,
 	}))
+}
 
+// 添加 或 编辑 封禁玩家
+func (c *controllerBans) AddEditBansPlayer(ctx *gin.Context) {
+	var bp bansPlayer
+
+	err := ctx.BindJSON(&bp)
+	if err != nil {
+		util.GetError().ParameterError("参数错误，请认检查参数后发送")
+	}
+
+	// 通过steamId 查找是否已经有该封禁玩家的信息
+	i := util.CreateReadWrite().FindContentIndex(fmt.Sprintf(`^%v(\/\/[^\n]*)?`, bp.SteamId), "Bans.cfg")
+
+	// 判断是否已经存在该封禁玩家
+	if i == -1 {
+		// 不存在
+		// 添加
+		util.CreateReadWrite().InsertReplaceLineConfig("Bans.cfg", 0, bp.formatString(), &util.AppendLine{})
+	} else {
+		// 存在 追加
+		util.CreateReadWrite().InsertReplaceLineConfig("Bans.cfg", i, bp.formatString(), &util.ReplaceLine{})
+	}
+
+	ctx.JSON(http.StatusOK, util.CreateResponseMsg(http.StatusOK, "操作成功", gin.H{
+		"bansPlayer": bp,
+	}))
+}
+
+// 删除 封禁玩家
+func (c *controllerBans) DelBansPlayer(ctx *gin.Context) {
+	steamIds, b := ctx.GetQueryArray("steamIds")
+	if !b {
+		util.GetError().ParameterError("参数不完整")
+	}
+
+	// 储存 删除的 行 的索引
+	var indexArr []int
+	for _, steamId := range steamIds {
+		// 查找是否有该 封禁玩家
+		i := util.CreateReadWrite().FindContentIndex(fmt.Sprintf(`^%v:.*`, steamId), "Bans.cfg")
+		if i <= -1 {
+			util.GetError().ParameterError(fmt.Sprintf("未找到steamId为：“%v”的管理员", steamId))
+		}
+
+		indexArr = append(indexArr, i)
+	}
+
+	// 删除的行数
+	var delLine int = 0
+	// 批量删除
+	for _, i := range indexArr {
+		// 删除 封禁玩家
+		util.CreateReadWrite().InsertReplaceLineConfig("Bans.cfg", i-delLine, "", &util.DeleteLine{})
+		delLine++
+	}
+
+	ctx.JSON(http.StatusOK, util.CreateResponseMsg(http.StatusOK, "操作成功", gin.H{}))
 }
 
 // 读取封禁玩家的名单
@@ -116,4 +175,20 @@ func (bp *bansPlayer) formatStrToBansPlayer(str string) bool {
 	bp.BansTime = bansTime
 
 	return true
+}
+
+// 将封禁玩家结构体格式化为相应的字符串
+// 如76561198039509812:0 //永久封禁-使用作弊程序
+func (bp bansPlayer) formatString() string {
+	var str string
+
+	// 判断是否有备注
+	if strings.TrimSpace(bp.Info) == "" {
+		// 没有备注
+		str = fmt.Sprintf(`%v:%v`, bp.SteamId, bp.BansTime)
+	} else {
+		str = fmt.Sprintf(`%v:%v // %v`, bp.SteamId, bp.BansTime, bp.Info)
+	}
+
+	return str
 }
