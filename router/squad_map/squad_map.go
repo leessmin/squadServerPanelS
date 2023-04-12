@@ -8,7 +8,7 @@ import (
 // 地图循环
 
 func init() {
-	mapApi := router.BasicAuth.Group("/squadMap")
+	mapApi := router.BasicAuth.Group("/map")
 
 	// 获取地图信息
 	mapApi.GET("/get", controller.SquadMap.GetSquadMap)
