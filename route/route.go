@@ -8,6 +8,7 @@ import (
 	_ "SSPS/router/system"
 	_ "SSPS/router/bans"
 	_ "SSPS/router/squad_server"
+	_ "SSPS/router/squad_map"
 )
 
 // 路由注册

@@ -4,6 +4,7 @@ import (
 	"SSPS/config"
 	"bufio"
 	"fmt"
+	"io"
 	"os"
 	"path"
 	"strings"
@@ -30,15 +31,25 @@ func CreateReadWrite() *ReadWrite {
 	return readWrite
 }
 
+// TODO: 已知错误 当读取不到文件时 会使服务器宕机
 // 读取配置文件  传入chan 将读取到的行 通过chan 返回
 func (rw *ReadWrite) ReadConfig(fileName string, ch chan string) {
 	go func(fileName string, ch chan string) {
+		// 捕获 panic
+		defer func(ch chan string) {
+			if err := recover(); err != nil {
+				fmt.Println(err)
+				close(ch)
+			}
+		}(ch)
+
 		// 路径拼接
 		fileName = rw.basePathJoin(fileName)
 
 		// 打开文件
 		file, err := os.Open(fileName)
 		if err != nil {
+			// 打开文件失败
 			panic(fmt.Sprintf("打开文件失败,err:%v", err))
 		}
 		defer file.Close()
@@ -81,7 +92,7 @@ func (rw *ReadWrite) ReadNotCommentConfig(fileName string, ch chan string) {
 			}
 
 			// 判断是否为注释掉的行
-			if isAnnotation(line) {
+			if IsAnnotation(line) {
 				// 跳过该行
 				continue
 			}
@@ -90,6 +101,32 @@ func (rw *ReadWrite) ReadNotCommentConfig(fileName string, ch chan string) {
 			ch <- line
 		}
 	}(fileName, ch)
+}
+
+// 传入需要拷贝的配置文件名字   备份到的路径
+// 拷贝文件
+func (rw *ReadWrite) CopyFile(srcFile, destPath string) error {
+	// 路径拼接
+	srcPath := rw.basePathJoin(srcFile)
+
+	sourceFile, err := os.Open(srcPath)
+	if err != nil {
+		return err
+	}
+
+	destFile := path.Join(destPath, srcFile)
+
+	file, err := os.OpenFile(destFile, os.O_RDWR|os.O_CREATE, os.ModePerm)
+	if err != nil {
+		return err
+	}
+
+	defer sourceFile.Close()
+	defer file.Close()
+
+	io.Copy(file, sourceFile)
+
+	return nil
 }
 
 // 向配置文件 追加一行  或 替换一行
@@ -266,6 +303,26 @@ func (dr *DeleteRegular) Handle(index int, pattern string, ch *chan string) stri
 	return strings.Join(lineArr, "\n")
 }
 
+// 判断目录是否存在
+func (rw *ReadWrite) IsDir(dirPath string) (bool, error) {
+	s, err := os.Stat(dirPath)
+	if err != nil {
+		return false, err
+	}
+
+	return s.IsDir(), nil
+}
+
+// 创建目录
+func (rw *ReadWrite) CreateDir(dirName string) error {
+	err := os.Mkdir(dirName, 0755)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 // 正则表达式
 // 匹配： Group=Admin:kick,ban,changemap  // 管理员
 // ^Group=Admin:([A-z]+,{0,}){0,}([^\n]*\/\/[^\n]*){0,}
@@ -329,7 +386,7 @@ func (rw *ReadWrite) coverWrite(fileName, content string) {
 }
 
 // 判断是否为注释字符串 或者 空行   如果是则返回true
-func isAnnotation(str string) bool {
+func IsAnnotation(str string) bool {
 
 	// 去除字符串两端空格
 	str = strings.TrimSpace(str)

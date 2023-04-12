@@ -2,6 +2,7 @@ package main
 
 import (
 	"SSPS/config"
+	_ "SSPS/init"
 	_ "SSPS/route"
 	"SSPS/router"
 	"fmt"
