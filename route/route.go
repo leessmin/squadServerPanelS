@@ -11,6 +11,7 @@ import (
 	_ "SSPS/router/squad_map"
 	_ "SSPS/router/squad_day_msg"
 	_ "SSPS/router/squad_server_msg"
+	_ "SSPS/router/squad_license"
 )
 
 // 路由注册
