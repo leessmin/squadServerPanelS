@@ -145,7 +145,7 @@ func (rw *ReadWrite) InsertReplaceLineConfig(fileName string, index int, content
 	rw.coverWrite(fileName, str)
 }
 
-// 替换内容的方法
+// 替换内容的方法 接口
 type InsertReplaceHandle interface {
 	//     索引 内容     读取到文本的通道
 	Handle(int, string, *chan string) string
@@ -211,6 +211,26 @@ func (rl *ReplaceLine) Handle(index int, content string, ch *chan string) string
 	}
 
 	return strings.Join(lineArr, "\n")
+}
+
+// 替换文件所有内容
+type ReplaceAll struct{}
+
+func (ra ReplaceAll) Handle(index int, content string, ch *chan string) string {
+	// 读取的行 索引
+
+	// 读取端 无法关闭通道，就让通道读取完自动关闭
+	go func(ch *chan string) {
+		for {
+			_, ok := <-*ch
+			// 通道关闭 跳出for循环
+			if !ok {
+				break
+			}
+		}
+	}(ch)
+
+	return content
 }
 
 // 追加新一行

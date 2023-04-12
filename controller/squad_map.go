@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"os"
 	"path"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 )
@@ -45,6 +46,37 @@ func (c *controllerSquadMap) GetSquadMap(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, util.CreateResponseMsg(http.StatusOK, "获取成功", gin.H{
 		"mapSelected": mapSelected,
 		"mapSelect":   mapSelect,
+	}))
+}
+
+// 修改地图
+func (c *controllerSquadMap) EditSquadMap(ctx *gin.Context) {
+	// 定义 绑定 用户传递的json
+	type bindMap struct {
+		// 地图的类型
+		MapType string `json:"mapType"`
+		// 地图的列表
+		MapList []string `json:"mapList"`
+	}
+
+	bMap := bindMap{}
+	err := ctx.BindJSON(&bMap)
+	if err != nil {
+		util.GetError().ParameterError("参数错误，请认检查参数后发送")
+	}
+
+	if !(bMap.MapType == "Layer" || bMap.MapType == "Level") {
+		util.GetError().ParameterError("mapType的参数只能为Layer,Level")
+	}
+
+	// 在原有的地图类型 添加Rotation.cfg  拼接成完整的文件名
+	bMap.MapType = fmt.Sprintf("%vRotation.cfg", bMap.MapType)
+
+	// 修改地图类型
+	util.CreateReadWrite().InsertReplaceLineConfig(bMap.MapType, 0, strings.Join(bMap.MapList, "\n"), util.ReplaceAll{})
+
+	ctx.JSON(http.StatusOK, util.CreateResponseMsg(http.StatusOK, "操作成功", gin.H{
+		"mapList": bMap.MapList,
 	}))
 }
 

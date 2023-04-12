@@ -12,4 +12,7 @@ func init() {
 
 	// 获取地图信息
 	mapApi.GET("/get", controller.SquadMap.GetSquadMap)
+
+	// 修改地图
+	mapApi.POST("/edit", controller.SquadMap.EditSquadMap)
 }

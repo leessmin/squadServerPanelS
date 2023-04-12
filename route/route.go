@@ -6,7 +6,7 @@ import (
 	_ "SSPS/router/squad_admin_group"
 	_ "SSPS/router/squad_admin_user"
 	_ "SSPS/router/system"
-	_ "SSPS/router/bans"
+	_ "SSPS/router/squad_bans"
 	_ "SSPS/router/squad_server"
 	_ "SSPS/router/squad_map"
 )

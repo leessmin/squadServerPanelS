@@ -1,4 +1,4 @@
-package bans
+package squad_bans
 
 import (
 	"SSPS/controller"
