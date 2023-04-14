@@ -3,6 +3,7 @@
         "changemap",
         "dchest",
         "dlclark",
+        "fsnotify",
         "gopsutil",
         "mapstructure",
         "mitchellh",

@@ -4,7 +4,9 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"sync"
 
+	"github.com/fsnotify/fsnotify"
 	"github.com/spf13/viper"
 )
 
@@ -20,11 +22,14 @@ type PanelConfig struct {
 	GameServePath string
 }
 
-// auth 配置文件读取器
-var panelViper *viper.Viper
-
-// 面板的配置实例
-var PanelConf *PanelConfig
+var (
+	// auth 配置文件读取器
+	panelViper *viper.Viper
+	// 面板的配置实例
+	panelConf *PanelConfig
+	// 实现单例模式 使用的sync.once
+	panelOnce sync.Once
+)
 
 func init() {
 	// 创建配置文件读取器
@@ -34,19 +39,35 @@ func init() {
 	panelViper.SetConfigName("panel")
 	panelViper.SetConfigType("toml")
 	panelViper.AddConfigPath("./panel_config/")
+
+	// 注册 监听 面板的配置 回调
+	panelViper.OnConfigChange(func(e fsnotify.Event) {
+		// 重新读取配置文件
+		CreatePanelConf().ReadPanelConfig()
+	})
+	// 开启监听
+	panelViper.WatchConfig()
 }
 
 func init() {
 	// 获取本机外网ip
 
-	// 初始化面板实例
-	PanelConf = &PanelConfig{}
 	// 读取配置文件
-	PanelConf.ReadPanelConfig()
+	CreatePanelConf().ReadPanelConfig()
 
 	// 更新配置文件
 	panelViper.Set("server_ip", getExternalIP())
 	panelViper.WriteConfig()
+}
+
+// 单例模式  初始化 面板配置 实例
+func CreatePanelConf() *PanelConfig {
+	panelOnce.Do(func() {
+		// 初始化面板实例
+		panelConf = &PanelConfig{}
+	})
+
+	return panelConf
 }
 
 func (p *PanelConfig) ReadPanelConfig() *PanelConfig {

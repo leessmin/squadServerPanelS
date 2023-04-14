@@ -11,5 +11,5 @@ import (
 func main() {
 
 	// 启动gin
-	router.Router.Run(fmt.Sprintf(":%v", config.PanelConf.PanelPort))
+	router.Router.Run(fmt.Sprintf(":%v", config.CreatePanelConf().PanelPort))
 }
