@@ -4,7 +4,6 @@ import (
 	"SSPS/config"
 	"SSPS/util"
 	"encoding/json"
-	"fmt"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -95,8 +94,6 @@ func forMsg(c *controllerSystem) {
 
 		// 发送消息
 		c.melodyWS.Broadcast(b)
-
-		fmt.Println("监听的时间为：", config.CreatePanelConf().ListeningTime)
 
 		// 根据配置的监听时间 来 睡眠程序
 		time.Sleep(time.Duration(config.CreatePanelConf().ListeningTime) * time.Second)
