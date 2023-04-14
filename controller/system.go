@@ -87,12 +87,23 @@ func forMsg(c *controllerSystem) {
 		system := util.CreateSystem()
 		data := system.GetSystemInfo()
 
-		b, _ := json.Marshal(data)
+		b, _ := json.Marshal(gin.H{
+			"time": getNowTime(),
+			"systemInfo": data,
+		})
 
 		// 发送消息
 		c.melodyWS.Broadcast(b)
 
-		// TODO: 暂时 写死 5秒
+		// 根据配置的监听时间 来 睡眠程序
 		time.Sleep(time.Duration(config.PanelConf.ListeningTime) * time.Second)
 	}
+}
+
+// 获取现在的时间
+func getNowTime() string {
+	// 获取现在的时间
+	now := time.Now()
+
+	return now.Format("15:04:05")
 }

@@ -14,7 +14,7 @@ var BasicAuth *gin.RouterGroup
 
 func init() {
 	// 启动gin
-	Router = gin.Default()
+	Router = gin.New()
 	{
 		// 挂载中间件  全局
 		Router.Use(middleware.ErrorMiddlewareHandle())
