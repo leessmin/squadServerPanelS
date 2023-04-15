@@ -8,6 +8,7 @@
         "mapstructure",
         "mitchellh",
         "Mountpoint",
+        "natefinch",
         "olahol",
         "shirou",
         "squadadmingroup",
