@@ -1,1 +1,41 @@
 {"level":"info","time":"2023-04-15 11:13:28","msg":"面板服务器启动成功"}
+{"level":"info","time":"2023-04-15 11:17:45","msg":"面板服务器关闭"}
+{"level":"info","time":"2023-04-15 11:17:48","msg":"面板服务器启动成功"}
+{"level":"warn","time":"2023-04-15 11:18:04","msg":"验证码错误！！！"}
+{"level":"warn","time":"2023-04-15 11:19:17","msg":"未找到组名为：“test”的管理组"}
+{"level":"info","time":"2023-04-15 11:30:15","msg":"面板服务器关闭"}
+{"level":"info","time":"2023-04-15 11:30:19","msg":"面板服务器启动成功"}
+{"level":"info","time":"2023-04-15 11:30:40","msg":"127.0.0.1 访问了 /api/BA/bans/get"}
+{"level":"info","time":"2023-04-15 11:31:19","msg":"127.0.0.1 访问了 /api/BA/bans/del"}
+{"level":"warn","time":"2023-04-15 11:31:19","msg":"未找到steamId为：“1”的管理员"}
+{"level":"info","time":"2023-04-15 11:32:01","msg":"面板服务器关闭"}
+{"level":"info","time":"2023-04-15 11:32:05","msg":"面板服务器启动成功"}
+{"level":"info","time":"2023-04-15 11:32:11","msg":"IP:127.0.0.1 访问了 /api/BA/bans/del"}
+{"level":"warn","time":"2023-04-15 11:32:11","msg":"未找到steamId为：“1”的管理员"}
+{"level":"info","time":"2023-04-15 11:32:24","msg":"IP:127.0.0.1 访问了 /api/auth/login"}
+{"level":"warn","time":"2023-04-15 11:32:24","msg":"验证码错误！！！"}
+{"level":"info","time":"2023-04-15 11:47:56","msg":"IP:192.168.1.100 访问了 /api/auth/login"}
+{"level":"info","time":"2023-04-15 11:48:07","msg":"IP:192.168.1.110 访问了 /api/auth/login"}
+{"level":"info","time":"2023-04-15 11:48:28","msg":"IP:192.168.1.100 访问了 /"}
+{"level":"info","time":"2023-04-15 11:48:34","msg":"IP:127.0.0.1 访问了 /"}
+{"level":"info","time":"2023-04-15 11:49:15","msg":"IP:127.0.0.1 访问了 /api/auth/login"}
+{"level":"warn","time":"2023-04-15 11:49:15","msg":"验证码错误！！！"}
+{"level":"info","time":"2023-04-15 11:49:17","msg":"IP:192.168.1.110 访问了 /api/auth/login"}
+{"level":"info","time":"2023-04-15 11:49:28","msg":"IP:192.168.1.110 访问了 /api/auth/login"}
+{"level":"info","time":"2023-04-15 11:49:32","msg":"IP:192.168.1.110 访问了 /api/auth/login"}
+{"level":"warn","time":"2023-04-15 11:49:32","msg":"验证码错误！！！"}
+{"level":"info","time":"2023-04-15 11:49:52","msg":"IP:192.168.1.100 访问了 /api/auth/login"}
+{"level":"warn","time":"2023-04-15 11:49:52","msg":"验证码错误！！！"}
+{"level":"info","time":"2023-04-15 11:50:11","msg":"IP:192.168.1.100 访问了 /api/auth/login"}
+{"level":"warn","time":"2023-04-15 11:50:11","msg":"验证码错误！！！"}
+{"level":"info","time":"2023-04-15 11:50:39","msg":"IP:192.168.1.110 访问了 /api/auth/login"}
+{"level":"warn","time":"2023-04-15 11:50:39","msg":"验证码错误！！！"}
+{"level":"info","time":"2023-04-15 11:52:07","msg":"面板服务器关闭"}
+{"level":"info","time":"2023-04-15 11:52:19","msg":"面板服务器启动成功"}
+{"level":"info","time":"2023-04-15 11:52:20","msg":"IP:192.168.1.110 |POST| 访问了 /api/auth/login"}
+{"level":"warn","time":"2023-04-15 11:52:20","msg":"验证码错误！！！"}
+{"level":"info","time":"2023-04-15 11:52:39","msg":"面板服务器关闭"}
+{"level":"info","time":"2023-04-15 11:52:42","msg":"面板服务器启动成功"}
+{"level":"info","time":"2023-04-15 11:52:44","msg":"IP:192.168.1.110 |POST| /api/auth/login"}
+{"level":"warn","time":"2023-04-15 11:52:44","msg":"验证码错误！！！"}
+{"level":"info","time":"2023-04-15 11:52:48","msg":"IP:192.168.1.110 |GET| /api/auth/login"}

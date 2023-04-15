@@ -21,6 +21,9 @@ func init() {
 
 		// 挂载 解决跨域插件  全局
 		Router.Use(middleware.CorsMiddlewareHandle())
+
+		// 日志
+		Router.Use(middleware.VisitLogMiddleware())
 	}
 
 	// 创建api路由组

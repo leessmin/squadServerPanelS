@@ -1,11 +1,13 @@
 package middleware
 
 import (
+	"SSPS/logger"
 	"SSPS/util"
 	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"go.uber.org/zap/zapcore"
 )
 
 // 异常处理 捕获 中间件
@@ -25,11 +27,15 @@ func ErrorMiddlewareHandle() gin.HandlerFunc {
 			if ok {
 				// 存在错误信息
 
+				logger.CreateLogger().Log(zapcore.WarnLevel, info.Msg)
+
 				// 发送错误信息
 				ctx.JSON(info.Code, info)
 				ctx.Abort()
 			} else {
 				if error != nil {
+					logger.CreateLogger().Log(zapcore.ErrorLevel, info.Msg)
+
 					// 不是主动抛出的异常
 					ctx.JSON(http.StatusBadRequest, gin.H{
 						"code": http.StatusBadRequest,
