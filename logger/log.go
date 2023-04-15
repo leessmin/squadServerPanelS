@@ -1,6 +1,10 @@
 package logger
 
 import (
+	"bufio"
+	"encoding/json"
+	"fmt"
+	"os"
 	"sync"
 
 	"go.uber.org/zap"
@@ -64,4 +68,57 @@ func (l *loggerStruct) Log(level zapcore.Level, msg string) {
 // 刷新日志缓存
 func (l *loggerStruct) Sync() {
 	l.logger.Sync()
+}
+
+// 日志信息
+type logInfo struct {
+	// 级别
+	Level string `json:"level"`
+	// 时间
+	Time string `json:"time"`
+	// 消息
+	Msg string `json:"msg"`
+}
+
+// 读取日志
+func (l *loggerStruct) ReadLog() []logInfo {
+	// 路径拼接
+	filePath := "./panel_log/log.log"
+
+	// 打开文件
+	file, err := os.Open(filePath)
+	if err != nil {
+		// 打开文件失败
+		panic(fmt.Sprintf("打开文件失败,err:%v", err))
+	}
+	defer file.Close()
+
+	buf := bufio.NewScanner(file)
+
+	// 储存 日志
+	var logArr []logInfo
+
+	for {
+		// 扫描到末尾，结束扫描
+		if !buf.Scan() {
+			break
+		}
+
+		// 获取当前行文字
+		line := buf.Bytes()
+
+		fmt.Println(string(line))
+
+		var info logInfo
+		err := json.Unmarshal(line, &info)
+		if err != nil {
+			CreateLogger().Log(zap.PanicLevel, "日志解析失败")
+			continue
+		}
+
+		// 追加
+		logArr = append(logArr, info)
+	}
+
+	return logArr
 }

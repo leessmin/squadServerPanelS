@@ -104,7 +104,7 @@ func readSquadMap(mapType string) []string {
 	return mapArr
 }
 
-// // 读取备份的地图配置
+// 读取备份的地图配置
 func readSquadMapBack(mapType string) []string {
 	// 路径拼接
 	filePath := path.Join("./backCfg", mapType)

@@ -1,41 +1,51 @@
-{"level":"info","time":"2023-04-15 11:13:28","msg":"面板服务器启动成功"}
-{"level":"info","time":"2023-04-15 11:17:45","msg":"面板服务器关闭"}
-{"level":"info","time":"2023-04-15 11:17:48","msg":"面板服务器启动成功"}
-{"level":"warn","time":"2023-04-15 11:18:04","msg":"验证码错误！！！"}
-{"level":"warn","time":"2023-04-15 11:19:17","msg":"未找到组名为：“test”的管理组"}
-{"level":"info","time":"2023-04-15 11:30:15","msg":"面板服务器关闭"}
-{"level":"info","time":"2023-04-15 11:30:19","msg":"面板服务器启动成功"}
-{"level":"info","time":"2023-04-15 11:30:40","msg":"127.0.0.1 访问了 /api/BA/bans/get"}
-{"level":"info","time":"2023-04-15 11:31:19","msg":"127.0.0.1 访问了 /api/BA/bans/del"}
-{"level":"warn","time":"2023-04-15 11:31:19","msg":"未找到steamId为：“1”的管理员"}
-{"level":"info","time":"2023-04-15 11:32:01","msg":"面板服务器关闭"}
-{"level":"info","time":"2023-04-15 11:32:05","msg":"面板服务器启动成功"}
-{"level":"info","time":"2023-04-15 11:32:11","msg":"IP:127.0.0.1 访问了 /api/BA/bans/del"}
-{"level":"warn","time":"2023-04-15 11:32:11","msg":"未找到steamId为：“1”的管理员"}
-{"level":"info","time":"2023-04-15 11:32:24","msg":"IP:127.0.0.1 访问了 /api/auth/login"}
-{"level":"warn","time":"2023-04-15 11:32:24","msg":"验证码错误！！！"}
-{"level":"info","time":"2023-04-15 11:47:56","msg":"IP:192.168.1.100 访问了 /api/auth/login"}
-{"level":"info","time":"2023-04-15 11:48:07","msg":"IP:192.168.1.110 访问了 /api/auth/login"}
-{"level":"info","time":"2023-04-15 11:48:28","msg":"IP:192.168.1.100 访问了 /"}
-{"level":"info","time":"2023-04-15 11:48:34","msg":"IP:127.0.0.1 访问了 /"}
-{"level":"info","time":"2023-04-15 11:49:15","msg":"IP:127.0.0.1 访问了 /api/auth/login"}
-{"level":"warn","time":"2023-04-15 11:49:15","msg":"验证码错误！！！"}
-{"level":"info","time":"2023-04-15 11:49:17","msg":"IP:192.168.1.110 访问了 /api/auth/login"}
-{"level":"info","time":"2023-04-15 11:49:28","msg":"IP:192.168.1.110 访问了 /api/auth/login"}
-{"level":"info","time":"2023-04-15 11:49:32","msg":"IP:192.168.1.110 访问了 /api/auth/login"}
-{"level":"warn","time":"2023-04-15 11:49:32","msg":"验证码错误！！！"}
-{"level":"info","time":"2023-04-15 11:49:52","msg":"IP:192.168.1.100 访问了 /api/auth/login"}
-{"level":"warn","time":"2023-04-15 11:49:52","msg":"验证码错误！！！"}
-{"level":"info","time":"2023-04-15 11:50:11","msg":"IP:192.168.1.100 访问了 /api/auth/login"}
-{"level":"warn","time":"2023-04-15 11:50:11","msg":"验证码错误！！！"}
-{"level":"info","time":"2023-04-15 11:50:39","msg":"IP:192.168.1.110 访问了 /api/auth/login"}
-{"level":"warn","time":"2023-04-15 11:50:39","msg":"验证码错误！！！"}
-{"level":"info","time":"2023-04-15 11:52:07","msg":"面板服务器关闭"}
-{"level":"info","time":"2023-04-15 11:52:19","msg":"面板服务器启动成功"}
-{"level":"info","time":"2023-04-15 11:52:20","msg":"IP:192.168.1.110 |POST| 访问了 /api/auth/login"}
-{"level":"warn","time":"2023-04-15 11:52:20","msg":"验证码错误！！！"}
-{"level":"info","time":"2023-04-15 11:52:39","msg":"面板服务器关闭"}
-{"level":"info","time":"2023-04-15 11:52:42","msg":"面板服务器启动成功"}
-{"level":"info","time":"2023-04-15 11:52:44","msg":"IP:192.168.1.110 |POST| /api/auth/login"}
-{"level":"warn","time":"2023-04-15 11:52:44","msg":"验证码错误！！！"}
-{"level":"info","time":"2023-04-15 11:52:48","msg":"IP:192.168.1.110 |GET| /api/auth/login"}
+{"level":"info","time":"2023-04-15 11:54:03","msg":"面板服务器关闭"}
+{"level":"info","time":"2023-04-15 12:39:01","msg":"面板服务器启动成功"}
+{"level":"info","time":"2023-04-15 12:39:26","msg":"IP:127.0.0.1 |GET| /api/BA/log/get"}
+{"level":"warn","time":"2023-04-15 12:39:26","msg":"没有发送token"}
+{"level":"info","time":"2023-04-15 12:39:31","msg":"IP:127.0.0.1 |GET| /api/BA/log/get"}
+{"level":"info","time":"2023-04-15 12:39:32","msg":"IP:127.0.0.1 |GET| /api/BA/log/get"}
+{"level":"info","time":"2023-04-15 12:40:16","msg":"IP:127.0.0.1 |GET| /api/BA/log/get"}
+{"level":"info","time":"2023-04-15 12:40:46","msg":"面板服务器关闭"}
+{"level":"info","time":"2023-04-15 12:40:50","msg":"面板服务器启动成功"}
+{"level":"info","time":"2023-04-15 12:40:51","msg":"IP:127.0.0.1 |GET| /api/BA/log/get"}
+{"level":"info","time":"2023-04-15 12:41:01","msg":"面板服务器关闭"}
+{"level":"info","time":"2023-04-15 12:41:04","msg":"面板服务器启动成功"}
+{"level":"info","time":"2023-04-15 12:41:07","msg":"IP:127.0.0.1 |GET| /api/BA/log/get"}
+{"level":"info","time":"2023-04-15 12:41:37","msg":"面板服务器关闭"}
+{"level":"info","time":"2023-04-15 12:41:40","msg":"面板服务器启动成功"}
+{"level":"info","time":"2023-04-15 12:41:41","msg":"IP:127.0.0.1 |GET| /api/BA/log/get"}
+{"level":"info","time":"2023-04-15 12:42:13","msg":"面板服务器关闭"}
+{"level":"info","time":"2023-04-15 12:42:16","msg":"面板服务器启动成功"}
+{"level":"info","time":"2023-04-15 12:42:17","msg":"IP:127.0.0.1 |GET| /api/BA/log/get"}
+{"level":"info","time":"2023-04-15 12:42:36","msg":"面板服务器关闭"}
+{"level":"info","time":"2023-04-15 12:42:40","msg":"面板服务器启动成功"}
+{"level":"info","time":"2023-04-15 12:42:42","msg":"IP:127.0.0.1 |GET| /api/BA/log/get"}
+{"level":"info","time":"2023-04-15 12:42:50","msg":"面板服务器关闭"}
+{"level":"info","time":"2023-04-15 12:42:54","msg":"面板服务器启动成功"}
+{"level":"info","time":"2023-04-15 12:42:55","msg":"IP:127.0.0.1 |GET| /api/BA/log/get"}
+{"level":"info","time":"2023-04-15 12:43:06","msg":"面板服务器关闭"}
+{"level":"info","time":"2023-04-15 12:43:57","msg":"面板服务器启动成功"}
+{"level":"info","time":"2023-04-15 12:43:57","msg":"IP:127.0.0.1 |GET| /api/BA/log/get"}
+{"level":"info","time":"2023-04-15 12:44:47","msg":"面板服务器关闭"}
+{"level":"info","time":"2023-04-15 12:44:51","msg":"面板服务器启动成功"}
+{"level":"info","time":"2023-04-15 12:44:52","msg":"IP:127.0.0.1 |GET| /api/BA/log/get"}
+{"level":"info","time":"2023-04-15 12:46:00","msg":"面板服务器关闭"}
+{"level":"info","time":"2023-04-15 12:46:14","msg":"面板服务器启动成功"}
+{"level":"info","time":"2023-04-15 12:46:15","msg":"IP:127.0.0.1 |GET| /api/BA/log/get"}
+{"level":"info","time":"2023-04-15 12:46:32","msg":"面板服务器关闭"}
+{"level":"info","time":"2023-04-15 12:46:37","msg":"面板服务器启动成功"}
+{"level":"info","time":"2023-04-15 12:46:39","msg":"IP:127.0.0.1 |GET| /api/BA/log/get"}
+{"level":"fatal","time":"2023-04-15 12:46:39","msg":"日志解析失败"}
+{"level":"info","time":"2023-04-15 12:46:55","msg":"面板服务器启动成功"}
+{"level":"info","time":"2023-04-15 12:47:00","msg":"IP:127.0.0.1 |GET| /api/BA/log/get"}
+{"level":"panic","time":"2023-04-15 12:47:00","msg":"日志解析失败"}
+{"level":"info","time":"2023-04-15 12:47:04","msg":"IP:127.0.0.1 |GET| /api/BA/bans/get"}
+{"level":"info","time":"2023-04-15 12:47:08","msg":"IP:127.0.0.1 |GET| /api/BA/log/get"}
+{"level":"panic","time":"2023-04-15 12:47:08","msg":"日志解析失败"}
+{"level":"info","time":"2023-04-15 12:47:43","msg":"面板服务器关闭"}
+{"level":"info","time":"2023-04-15 12:47:46","msg":"面板服务器启动成功"}
+{"level":"info","time":"2023-04-15 12:47:47","msg":"IP:127.0.0.1 |GET| /api/BA/log/get"}
+{"level":"panic","time":"2023-04-15 12:47:47","msg":"日志解析失败"}
+{"level":"info","time":"2023-04-15 12:47:57","msg":"面板服务器关闭"}
+{"level":"info","time":"2023-04-15 12:48:01","msg":"面板服务器启动成功"}
+{"level":"info","time":"2023-04-15 12:48:02","msg":"IP:127.0.0.1 |GET| /api/BA/log/get"}
