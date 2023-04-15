@@ -96,7 +96,7 @@ func (p *PanelConfig) UpdatePanelConfig(mapValue map[string]interface{}) error {
 		// 判断是否 存在key
 		if !panelViper.IsSet(key) {
 			// 不存在
-			return fmt.Errorf("没有%v字段", key)
+			return fmt.Errorf("写入配置失败，因为没有%v字段", key)
 		}
 
 		// 更新配置
