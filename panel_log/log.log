@@ -50,3 +50,35 @@
 {"level":"info","time":"2023-04-15 12:48:01","msg":"面板服务器启动成功"}
 {"level":"info","time":"2023-04-15 12:48:02","msg":"IP:127.0.0.1 |GET| /api/BA/log/get"}
 {"level":"info","time":"2023-04-15 12:48:53","msg":"面板服务器关闭"}
+{"level":"info","time":"2023-04-15 12:48:56","msg":"面板服务器启动成功"}
+{"level":"info","time":"2023-04-15 12:49:06","msg":"IP:127.0.0.1 |GET| /api/BA/log/get"}
+{"level":"info","time":"2023-04-15 12:53:33","msg":"面板服务器关闭"}
+{"level":"info","time":"2023-04-15 13:53:02","msg":"面板服务器启动成功"}
+{"level":"info","time":"2023-04-15 13:53:07","msg":"IP:127.0.0.1 |POST| /api/auth/updateAuth"}
+{"level":"warn","time":"2023-04-15 13:53:07","msg":"账号或密码错误，无法完成修改"}
+{"level":"info","time":"2023-04-15 13:53:42","msg":"IP:127.0.0.1 |POST| /api/auth/updateAuth"}
+{"level":"warn","time":"2023-04-15 13:53:42","msg":"密码长度不能小于8位"}
+{"level":"info","time":"2023-04-15 13:53:58","msg":"IP:127.0.0.1 |POST| /api/auth/updateAuth"}
+{"level":"warn","time":"2023-04-15 13:53:58","msg":"密码长度不能小于8位"}
+{"level":"info","time":"2023-04-15 13:54:17","msg":"IP:127.0.0.1 |POST| /api/auth/updateAuth"}
+{"level":"info","time":"2023-04-15 13:54:20","msg":"IP:127.0.0.1 |POST| /api/auth/updateAuth"}
+{"level":"info","time":"2023-04-15 13:55:25","msg":"面板服务器关闭"}
+{"level":"info","time":"2023-04-15 13:55:33","msg":"面板服务器启动成功"}
+{"level":"info","time":"2023-04-15 13:55:42","msg":"IP:127.0.0.1 |POST| /api/auth/updateAuth"}
+{"level":"info","time":"2023-04-15 13:56:03","msg":"IP:127.0.0.1 |POST| /api/auth/updateAuth"}
+{"level":"info","time":"2023-04-15 13:56:34","msg":"面板服务器关闭"}
+{"level":"info","time":"2023-04-15 13:56:42","msg":"面板服务器启动成功"}
+{"level":"info","time":"2023-04-15 13:56:43","msg":"IP:127.0.0.1 |POST| /api/auth/updateAuth"}
+{"level":"info","time":"2023-04-15 13:56:57","msg":"面板服务器关闭"}
+{"level":"info","time":"2023-04-15 13:57:04","msg":"面板服务器启动成功"}
+{"level":"info","time":"2023-04-15 13:57:10","msg":"IP:127.0.0.1 |POST| /api/auth/updateAuth"}
+{"level":"info","time":"2023-04-15 13:57:23","msg":"IP:127.0.0.1 |POST| /api/auth/updateAuth"}
+{"level":"warn","time":"2023-04-15 13:57:23","msg":"账号或密码错误，无法完成修改"}
+{"level":"info","time":"2023-04-15 13:57:49","msg":"IP:127.0.0.1 |POST| /api/auth/updateAuth"}
+{"level":"info","time":"2023-04-15 13:57:55","msg":"IP:127.0.0.1 |POST| /api/auth/updateAuth"}
+{"level":"info","time":"2023-04-15 13:58:01","msg":"IP:127.0.0.1 |POST| /api/auth/updateAuth"}
+{"level":"info","time":"2023-04-15 13:58:11","msg":"IP:127.0.0.1 |POST| /api/auth/updateAuth"}
+{"level":"info","time":"2023-04-15 13:58:35","msg":"IP:127.0.0.1 |POST| /api/auth/updateAuth"}
+{"level":"info","time":"2023-04-15 13:58:41","msg":"IP:127.0.0.1 |GET| /api/BA/bans/get"}
+{"level":"warn","time":"2023-04-15 13:58:41","msg":"token失效"}
+{"level":"info","time":"2023-04-15 13:58:47","msg":"IP:127.0.0.1 |GET| /api/BA/bans/get"}

@@ -101,3 +101,41 @@ func (c *controllerLogin) VerifyTokenHandle(ctx *gin.Context) {
 		"token": tokenString,
 	}))
 }
+
+// 修改账号或密码
+func (c *controllerLogin) UpdateAuth(ctx *gin.Context) {
+	username := ctx.PostForm("username")
+	password := ctx.PostForm("password")
+	newUsername := ctx.PostForm("newUsername")
+	newPassword := ctx.PostForm("newPassword")
+
+	// 创建读取 auth 配置的实例
+	authStruct := config.AuthUser{}
+	// 读取配置文件  获取登录账号与密码 与修改时间
+	configUser := authStruct.ReadAuthConfig()
+
+	// 判断账号密码是否正确
+	if username != configUser.Username || password != configUser.Password {
+		util.GetError().UnauthorizedError("账号或密码错误，无法完成修改")
+	}
+
+	// 判断新密码长度是否小于 8
+	if len(newPassword) < 8 {
+		util.GetError().ParameterError("密码长度不能小于8位")
+	}
+
+	// 判断是否有修改新账号
+	if len(newUsername) > 0 {
+		// 修改账号
+		authStruct.Username = newUsername
+	}
+
+	// 修改密码
+	authStruct.Password = newPassword
+
+	// 更新账号密码
+	authStruct.UpdateAuth()
+
+	// 成功
+	ctx.JSON(http.StatusOK, util.CreateResponseMsg(http.StatusOK, "更新账号密码成功", gin.H{}))
+}

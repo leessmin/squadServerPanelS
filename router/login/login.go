@@ -19,5 +19,8 @@ func init() {
 
 		// 验证token是否有效
 		authRouter.Any("/verify", controller.Login.VerifyTokenHandle)
+
+		// 修改账号密码
+		authRouter.POST("/updateAuth", controller.Login.UpdateAuth)
 	}
 }

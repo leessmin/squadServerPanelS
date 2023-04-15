@@ -14,21 +14,13 @@ type AuthUser struct {
 	// 用户密码
 	Password string
 	// 账号更改的时间
-	Op_time  time.Time
+	Op_time time.Time
 }
-
-// auth 配置文件读取器
-var authViper *viper.Viper
 
 // 读取 auth 配置文件
 func (a *AuthUser) ReadAuthConfig() *AuthUser {
-	// 创建配置文件读取器
-	authViper = viper.New()
 
-	// 设置配置文件
-	authViper.SetConfigName("auth")
-	authViper.SetConfigType("toml")
-	authViper.AddConfigPath("./panel_config/")
+	authViper := newAuthViper()
 
 	// 读取配置文件
 	err := authViper.ReadInConfig()
@@ -43,4 +35,28 @@ func (a *AuthUser) ReadAuthConfig() *AuthUser {
 	a.Op_time = authViper.GetTime("account.op_time")
 
 	return a
+}
+
+// 更改账号 或 密码
+func (a *AuthUser) UpdateAuth() {
+	authViper := newAuthViper()
+
+	authViper.Set("account.username", a.Username)
+	authViper.Set("account.password", a.Password)
+	authViper.Set("account.op_time", time.Now())
+
+	authViper.WriteConfig()
+}
+
+// 创建 auth Viper
+func newAuthViper() *viper.Viper {
+	// 创建配置文件读取器
+	authViper := viper.New()
+
+	// 设置配置文件
+	authViper.SetConfigName("auth")
+	authViper.SetConfigType("toml")
+	authViper.AddConfigPath("./panel_config/")
+
+	return authViper
 }
