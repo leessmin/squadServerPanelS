@@ -3,6 +3,7 @@ package config
 import (
 	"fmt"
 	"io"
+	"math"
 	"net/http"
 	"sync"
 
@@ -89,21 +90,41 @@ func (p *PanelConfig) ReadPanelConfig() *PanelConfig {
 }
 
 // 更新配置
-func (p *PanelConfig) UpdatePanelConfig(key string, value interface{}) error {
+func (p *PanelConfig) UpdatePanelConfig(mapValue map[string]interface{}) error {
 
-	// 判断是否 存在key
-	if !panelViper.IsSet(key) {
-		// 不存在
-		return fmt.Errorf("没有%v字段", key)
+	for key, value := range mapValue {
+		// 判断是否 存在key
+		if !panelViper.IsSet(key) {
+			// 不存在
+			return fmt.Errorf("没有%v字段", key)
+		}
+
+		// 更新配置
+		panelViper.Set(key, GetType(value))
 	}
-
-	// 更新配置文件
-	panelViper.Set(key, value)
 
 	// 写入配置
 	panelViper.WriteConfig()
 
 	return nil
+}
+
+// 获取interface的类型  然后转成对应类型后 返回
+func GetType(value interface{}) any {
+	// 类型断言
+	switch v := value.(type) {
+	case int:
+		return v
+	case string:
+		return v
+	case float64:
+		if v == math.Trunc(v) {
+			return int(v)
+		}
+		return v
+	default:
+		return v
+	}
 }
 
 // 获取外部ip

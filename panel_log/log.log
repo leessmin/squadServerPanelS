@@ -131,3 +131,64 @@
 {"level":"info","time":"2023-04-15 18:58:04","msg":"IP:127.0.0.1 |POST| /api/BA/panel/update"}
 {"level":"info","time":"2023-04-15 19:30:26","msg":"IP:127.0.0.1 |POST| /api/BA/squadServer/edit"}
 {"level":"info","time":"2023-04-15 19:30:36","msg":"IP:127.0.0.1 |POST| /api/BA/squadServer/edit"}
+{"level":"info","time":"2023-04-15 19:50:32","msg":"面板服务器关闭"}
+{"level":"info","time":"2023-04-15 21:44:52","msg":"面板服务器启动成功"}
+{"level":"info","time":"2023-04-15 21:45:03","msg":"IP:127.0.0.1 |GET| /api/BA/panel/get"}
+{"level":"info","time":"2023-04-15 21:46:32","msg":"IP:127.0.0.1 |GET| /api/BA/panel/get"}
+{"level":"info","time":"2023-04-15 21:46:38","msg":"IP:127.0.0.1 |POST| /api/BA/panel/update"}
+{"level":"info","time":"2023-04-15 21:56:13","msg":"面板服务器关闭"}
+{"level":"info","time":"2023-04-15 21:56:17","msg":"面板服务器启动成功"}
+{"level":"info","time":"2023-04-15 21:56:21","msg":"IP:127.0.0.1 |POST| /api/BA/panel/update"}
+{"level":"info","time":"2023-04-15 21:56:40","msg":"面板服务器关闭"}
+{"level":"info","time":"2023-04-15 21:56:43","msg":"面板服务器启动成功"}
+{"level":"info","time":"2023-04-15 21:56:48","msg":"IP:127.0.0.1 |POST| /api/BA/panel/update"}
+{"level":"info","time":"2023-04-15 21:57:07","msg":"面板服务器关闭"}
+{"level":"info","time":"2023-04-15 21:57:10","msg":"面板服务器启动成功"}
+{"level":"info","time":"2023-04-15 21:57:12","msg":"IP:127.0.0.1 |POST| /api/BA/panel/update"}
+{"level":"info","time":"2023-04-15 21:58:10","msg":"面板服务器关闭"}
+{"level":"info","time":"2023-04-15 21:58:14","msg":"面板服务器启动成功"}
+{"level":"info","time":"2023-04-15 21:58:15","msg":"IP:127.0.0.1 |POST| /api/BA/panel/update"}
+{"level":"info","time":"2023-04-15 21:58:31","msg":"面板服务器关闭"}
+{"level":"info","time":"2023-04-15 21:58:35","msg":"面板服务器启动成功"}
+{"level":"info","time":"2023-04-15 21:58:36","msg":"IP:127.0.0.1 |POST| /api/BA/panel/update"}
+{"level":"info","time":"2023-04-15 22:01:27","msg":"面板服务器关闭"}
+{"level":"info","time":"2023-04-15 22:01:31","msg":"面板服务器启动成功"}
+{"level":"info","time":"2023-04-15 22:01:40","msg":"IP:127.0.0.1 |POST| /api/BA/panel/update"}
+{"level":"info","time":"2023-04-15 22:06:42","msg":"面板服务器关闭"}
+{"level":"info","time":"2023-04-15 22:06:46","msg":"面板服务器启动成功"}
+{"level":"info","time":"2023-04-15 22:06:58","msg":"IP:127.0.0.1 |POST| /api/BA/panel/update"}
+{"level":"info","time":"2023-04-15 22:07:21","msg":"面板服务器关闭"}
+{"level":"info","time":"2023-04-15 22:07:25","msg":"面板服务器启动成功"}
+{"level":"info","time":"2023-04-15 22:07:31","msg":"IP:127.0.0.1 |POST| /api/BA/panel/update"}
+{"level":"info","time":"2023-04-15 22:07:35","msg":"IP:127.0.0.1 |POST| /api/BA/panel/update"}
+{"level":"info","time":"2023-04-15 22:07:40","msg":"IP:127.0.0.1 |POST| /api/BA/panel/update"}
+{"level":"info","time":"2023-04-15 22:07:44","msg":"IP:127.0.0.1 |POST| /api/BA/panel/update"}
+{"level":"info","time":"2023-04-15 22:07:47","msg":"IP:127.0.0.1 |POST| /api/BA/panel/update"}
+{"level":"info","time":"2023-04-15 22:07:51","msg":"IP:127.0.0.1 |POST| /api/BA/panel/update"}
+{"level":"info","time":"2023-04-15 22:07:56","msg":"IP:127.0.0.1 |POST| /api/BA/panel/update"}
+{"level":"info","time":"2023-04-15 22:08:00","msg":"IP:127.0.0.1 |POST| /api/BA/panel/update"}
+{"level":"info","time":"2023-04-15 22:11:25","msg":"面板服务器关闭"}
+{"level":"info","time":"2023-04-15 22:11:44","msg":"面板服务器启动成功"}
+{"level":"info","time":"2023-04-15 22:11:52","msg":"IP:127.0.0.1 |POST| /api/BA/panel/update"}
+{"level":"info","time":"2023-04-15 22:12:00","msg":"IP:127.0.0.1 |POST| /api/BA/panel/update"}
+{"level":"info","time":"2023-04-15 22:12:02","msg":"IP:127.0.0.1 |POST| /api/BA/panel/update"}
+{"level":"info","time":"2023-04-15 22:12:09","msg":"IP:127.0.0.1 |POST| /api/BA/panel/update"}
+{"level":"info","time":"2023-04-15 22:12:53","msg":"面板服务器关闭"}
+{"level":"info","time":"2023-04-15 22:13:25","msg":"面板服务器启动成功"}
+{"level":"info","time":"2023-04-15 22:13:30","msg":"IP:127.0.0.1 |POST| /api/BA/panel/update"}
+{"level":"info","time":"2023-04-15 22:13:34","msg":"IP:127.0.0.1 |POST| /api/BA/panel/update"}
+{"level":"info","time":"2023-04-15 22:13:45","msg":"IP:127.0.0.1 |POST| /api/BA/panel/update"}
+{"level":"info","time":"2023-04-15 22:13:49","msg":"IP:127.0.0.1 |POST| /api/BA/panel/update"}
+{"level":"info","time":"2023-04-15 22:13:57","msg":"IP:127.0.0.1 |POST| /api/BA/panel/update"}
+{"level":"info","time":"2023-04-15 22:14:01","msg":"IP:127.0.0.1 |POST| /api/BA/panel/update"}
+{"level":"info","time":"2023-04-15 22:14:06","msg":"IP:127.0.0.1 |POST| /api/BA/panel/update"}
+{"level":"info","time":"2023-04-15 22:14:12","msg":"IP:127.0.0.1 |GET| /api/BA/panel/get"}
+{"level":"info","time":"2023-04-15 22:14:14","msg":"IP:127.0.0.1 |GET| /api/BA/panel/get"}
+{"level":"info","time":"2023-04-15 22:14:17","msg":"IP:127.0.0.1 |POST| /api/BA/panel/update"}
+{"level":"info","time":"2023-04-15 22:14:21","msg":"IP:127.0.0.1 |GET| /api/BA/panel/get"}
+{"level":"info","time":"2023-04-15 22:14:24","msg":"IP:127.0.0.1 |POST| /api/BA/panel/update"}
+{"level":"info","time":"2023-04-15 22:14:27","msg":"IP:127.0.0.1 |GET| /api/BA/panel/get"}
+{"level":"info","time":"2023-04-15 22:14:37","msg":"IP:127.0.0.1 |POST| /api/BA/panel/update"}
+{"level":"info","time":"2023-04-15 22:14:39","msg":"IP:127.0.0.1 |GET| /api/BA/panel/get"}
+{"level":"info","time":"2023-04-15 22:14:42","msg":"IP:127.0.0.1 |POST| /api/BA/panel/update"}
+{"level":"info","time":"2023-04-15 22:15:05","msg":"面板服务器关闭"}

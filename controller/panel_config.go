@@ -41,11 +41,13 @@ func (c *controllerPanelConfig) UpdateConfig(ctx *gin.Context) {
 	// 将json数据转换成map
 	json.Unmarshal(r, &mpCfg)
 
-	for key, v := range mpCfg {
-		config.CreatePanelConf().UpdatePanelConfig(key, v)
+	// 更新配置
+	err = config.CreatePanelConf().UpdatePanelConfig(mpCfg)
+	if err != nil {
+		util.GetError().ParameterError(err.Error())
 	}
 
 	ctx.JSON(http.StatusOK, util.CreateResponseMsg(http.StatusOK, "操作成功", gin.H{
-		"config": config.CreatePanelConf(),
+		"config": mpCfg,
 	}))
 }
