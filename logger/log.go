@@ -107,8 +107,6 @@ func (l *loggerStruct) ReadLog() []logInfo {
 		// 获取当前行文字
 		line := buf.Bytes()
 
-		fmt.Println(string(line))
-
 		var info logInfo
 		err := json.Unmarshal(line, &info)
 		if err != nil {
