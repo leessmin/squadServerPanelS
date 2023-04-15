@@ -13,13 +13,13 @@ import (
 // 面板的配置文件
 type PanelConfig struct {
 	// 服务器ip
-	ServerIp string
+	ServerIp string `json:"server_ip"`
 	// 面板端口
-	PanelPort int
+	PanelPort int `json:"panel_port"`
 	// 监听时间
-	ListeningTime int
+	ListeningTime int `json:"listening_time"`
 	// 游戏服务器的根路径
-	GameServePath string
+	GameServePath string `json:"game_serve_path"`
 }
 
 var (
@@ -70,6 +70,7 @@ func CreatePanelConf() *PanelConfig {
 	return panelConf
 }
 
+// 读取配置
 func (p *PanelConfig) ReadPanelConfig() *PanelConfig {
 
 	// 读取配置文件
@@ -85,6 +86,24 @@ func (p *PanelConfig) ReadPanelConfig() *PanelConfig {
 	p.GameServePath = panelViper.GetString("game_serve_path")
 
 	return p
+}
+
+// 更新配置
+func (p *PanelConfig) UpdatePanelConfig(key string, value interface{}) error {
+
+	// 判断是否 存在key
+	if !panelViper.IsSet(key) {
+		// 不存在
+		return fmt.Errorf("没有%v字段", key)
+	}
+
+	// 更新配置文件
+	panelViper.Set(key, value)
+
+	// 写入配置
+	panelViper.WriteConfig()
+
+	return nil
 }
 
 // 获取外部ip

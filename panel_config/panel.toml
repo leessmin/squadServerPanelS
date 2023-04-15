@@ -1,4 +1,4 @@
 game_serve_path = 'C:/Users/李思敏/Desktop/squad/squad'
-listening_time = 5
-panel_port = 8080
+listening_time = 5.0
+panel_port = 8080.0
 server_ip = '113.12.24.7'

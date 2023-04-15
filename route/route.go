@@ -3,6 +3,7 @@ package route
 import (
 	_ "SSPS/router/logger"
 	_ "SSPS/router/login"
+	_ "SSPS/router/panel_config"
 	_ "SSPS/router/proxy"
 	_ "SSPS/router/squad_admin_group"
 	_ "SSPS/router/squad_admin_user"
