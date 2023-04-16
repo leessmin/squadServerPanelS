@@ -14,7 +14,7 @@ type AuthUser struct {
 	// 用户密码
 	Password string
 	// 账号更改的时间
-	Op_time time.Time
+	Op_time int64
 }
 
 // 读取 auth 配置文件
@@ -32,7 +32,7 @@ func (a *AuthUser) ReadAuthConfig() *AuthUser {
 	// 将配置文件映射成user
 	a.Username = authViper.GetString("account.username")
 	a.Password = authViper.GetString("account.password")
-	a.Op_time = authViper.GetTime("account.op_time")
+	a.Op_time = authViper.GetInt64("account.op_time")
 
 	return a
 }
@@ -43,7 +43,7 @@ func (a *AuthUser) UpdateAuth() {
 
 	authViper.Set("account.username", a.Username)
 	authViper.Set("account.password", a.Password)
-	authViper.Set("account.op_time", time.Now())
+	authViper.Set("account.op_time", time.Now().Unix())
 
 	authViper.WriteConfig()
 }

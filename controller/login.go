@@ -68,13 +68,16 @@ func (c *controllerLogin) LoginHandle(ctx *gin.Context) {
 		util.GetError().ServerError(fmt.Sprintln("生成token失败，错误信息为：err: ", err))
 	}
 
-	/* ctx.JSON(http.StatusOK, gin.H{
-		"code":  http.StatusOK,
-		"msg":   "登录成功",
-		"token": token,
-	}) */
+	// 是否为初次登录  true为是
+	isFirst := false
+	// 判断是否是初次登录
+	if len(config.CreatePanelConf().GameServePath) <= 0 || configUser.Password == "admin" {
+		isFirst = true
+	}
+
 	ctx.JSON(http.StatusOK, util.CreateResponseMsg(http.StatusOK, "登录成功", gin.H{
 		"token": token,
+		"first": isFirst,
 	}))
 }
 

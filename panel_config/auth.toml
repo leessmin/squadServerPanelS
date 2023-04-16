@@ -1,4 +1,5 @@
 [account]
-op_time = 2023-04-16T11:27:23.0133618+08:00
-password = 'admin1'
-username = 'admin1'
+username = "admin"
+password = "admin"
+# 操作账号密码的时间  防止修改密码token还生效
+op_time = 1681616995

@@ -26,12 +26,12 @@ func init() {
 type customClaims struct {
 	// 用户名
 	Username string
-	Op_time  time.Time
+	Op_time  int64
 	jwt.RegisteredClaims
 }
 
 // 创建jwt
-func (u uJWT) CreateJWT(username string, op_time time.Time) (string, error) {
+func (u uJWT) CreateJWT(username string, op_time int64) (string, error) {
 	// 实例化 签发 jwt 的结构体
 	claims := customClaims{
 		Username: username,

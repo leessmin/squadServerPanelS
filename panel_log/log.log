@@ -238,3 +238,53 @@
 {"level":"info","time":"2023-04-16 11:26:31","msg":"面板服务器启动成功"}
 {"level":"info","time":"2023-04-16 11:26:35","msg":"IP:127.0.0.1 |POST| /api/BA/first/init"}
 {"level":"info","time":"2023-04-16 11:26:39","msg":"面板服务器关闭"}
+{"level":"info","time":"2023-04-16 11:34:23","msg":"面板服务器关闭"}
+{"level":"info","time":"2023-04-16 11:34:34","msg":"面板服务器启动成功"}
+{"level":"info","time":"2023-04-16 11:35:04","msg":"IP:127.0.0.1 |GET| /api/auth/captcha"}
+{"level":"info","time":"2023-04-16 11:36:29","msg":"IP:127.0.0.1 |POST| /api/auth/login"}
+{"level":"info","time":"2023-04-16 11:36:52","msg":"IP:127.0.0.1 |POST| /api/BA/first/init"}
+{"level":"info","time":"2023-04-16 11:37:03","msg":"IP:127.0.0.1 |GET| /api/auth/captcha"}
+{"level":"info","time":"2023-04-16 11:37:16","msg":"IP:127.0.0.1 |GET| /api/auth/captcha"}
+{"level":"info","time":"2023-04-16 11:37:26","msg":"IP:127.0.0.1 |GET| /api/auth/captcha"}
+{"level":"info","time":"2023-04-16 11:37:41","msg":"IP:127.0.0.1 |GET| /api/auth/captcha"}
+{"level":"info","time":"2023-04-16 11:37:57","msg":"IP:127.0.0.1 |GET| /api/auth/captcha"}
+{"level":"info","time":"2023-04-16 11:38:04","msg":"IP:127.0.0.1 |GET| /api/auth/captcha"}
+{"level":"info","time":"2023-04-16 11:38:11","msg":"IP:127.0.0.1 |GET| /api/auth/captcha"}
+{"level":"info","time":"2023-04-16 11:38:19","msg":"IP:127.0.0.1 |GET| /api/auth/captcha"}
+{"level":"info","time":"2023-04-16 11:38:39","msg":"IP:127.0.0.1 |POST| /api/auth/login"}
+{"level":"info","time":"2023-04-16 11:38:50","msg":"IP:127.0.0.1 |POST| /api/auth/login"}
+{"level":"warn","time":"2023-04-16 11:38:50","msg":"验证码错误！！！"}
+{"level":"info","time":"2023-04-16 11:38:54","msg":"IP:127.0.0.1 |GET| /api/auth/captcha"}
+{"level":"info","time":"2023-04-16 11:39:11","msg":"IP:127.0.0.1 |POST| /api/auth/login"}
+{"level":"info","time":"2023-04-16 11:39:29","msg":"面板服务器关闭"}
+{"level":"info","time":"2023-04-16 11:39:33","msg":"面板服务器启动成功"}
+{"level":"info","time":"2023-04-16 11:39:38","msg":"IP:127.0.0.1 |GET| /api/auth/captcha"}
+{"level":"info","time":"2023-04-16 11:39:50","msg":"IP:127.0.0.1 |GET| /api/auth/captcha"}
+{"level":"info","time":"2023-04-16 11:40:05","msg":"IP:127.0.0.1 |POST| /api/auth/login"}
+{"level":"warn","time":"2023-04-16 11:40:05","msg":"验证码错误！！！"}
+{"level":"info","time":"2023-04-16 11:40:08","msg":"IP:127.0.0.1 |GET| /api/auth/captcha"}
+{"level":"info","time":"2023-04-16 11:40:25","msg":"IP:127.0.0.1 |POST| /api/auth/login"}
+{"level":"info","time":"2023-04-16 11:40:29","msg":"IP:127.0.0.1 |POST| /api/BA/first/init"}
+{"level":"warn","time":"2023-04-16 11:40:29","msg":"token失效"}
+{"level":"info","time":"2023-04-16 11:40:41","msg":"IP:127.0.0.1 |POST| /api/BA/first/init"}
+{"level":"warn","time":"2023-04-16 11:40:41","msg":"token失效"}
+{"level":"info","time":"2023-04-16 11:40:54","msg":"IP:127.0.0.1 |POST| /api/BA/first/init"}
+{"level":"warn","time":"2023-04-16 11:40:54","msg":"token失效"}
+{"level":"info","time":"2023-04-16 11:40:59","msg":"IP:127.0.0.1 |GET| /api/auth/captcha"}
+{"level":"info","time":"2023-04-16 11:41:16","msg":"IP:127.0.0.1 |GET| /api/auth/captcha"}
+{"level":"info","time":"2023-04-16 11:41:34","msg":"IP:127.0.0.1 |POST| /api/auth/login"}
+{"level":"info","time":"2023-04-16 11:41:42","msg":"IP:127.0.0.1 |POST| /api/BA/first/init"}
+{"level":"warn","time":"2023-04-16 11:41:42","msg":"token失效"}
+{"level":"info","time":"2023-04-16 11:41:57","msg":"面板服务器关闭"}
+{"level":"info","time":"2023-04-16 11:42:01","msg":"面板服务器启动成功"}
+{"level":"info","time":"2023-04-16 11:42:03","msg":"IP:127.0.0.1 |POST| /api/BA/first/init"}
+{"level":"warn","time":"2023-04-16 11:42:03","msg":"token失效"}
+{"level":"info","time":"2023-04-16 11:43:28","msg":"IP:127.0.0.1 |GET| /api/auth/verify"}
+{"level":"warn","time":"2023-04-16 11:43:28","msg":"token失效"}
+{"level":"info","time":"2023-04-16 11:43:31","msg":"IP:127.0.0.1 |GET| /api/auth/verify"}
+{"level":"warn","time":"2023-04-16 11:43:31","msg":"token失效"}
+{"level":"info","time":"2023-04-16 11:44:02","msg":"面板服务器关闭"}
+{"level":"info","time":"2023-04-16 11:44:07","msg":"面板服务器启动成功"}
+{"level":"info","time":"2023-04-16 11:44:08","msg":"IP:127.0.0.1 |GET| /api/auth/verify"}
+{"level":"warn","time":"2023-04-16 11:44:08","msg":"token失效"}
+{"level":"info","time":"2023-04-16 11:46:03","msg":"面板服务器关闭"}
