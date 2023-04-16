@@ -1,6 +1,7 @@
 package route
 
 import (
+	_ "SSPS/router/first_init"
 	_ "SSPS/router/logger"
 	_ "SSPS/router/login"
 	_ "SSPS/router/panel_config"

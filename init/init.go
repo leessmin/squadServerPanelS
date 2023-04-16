@@ -4,5 +4,5 @@ package init
 
 func init() {
 	// 备份 squad 服务器的配置
-	backupSquadCfg()
+	BackupSquadCfg()
 }

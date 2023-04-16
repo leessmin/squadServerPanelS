@@ -192,3 +192,49 @@
 {"level":"info","time":"2023-04-15 22:14:39","msg":"IP:127.0.0.1 |GET| /api/BA/panel/get"}
 {"level":"info","time":"2023-04-15 22:14:42","msg":"IP:127.0.0.1 |POST| /api/BA/panel/update"}
 {"level":"info","time":"2023-04-15 22:15:05","msg":"面板服务器关闭"}
+{"level":"info","time":"2023-04-15 22:15:49","msg":"面板服务器启动成功"}
+{"level":"info","time":"2023-04-15 22:16:10","msg":"IP:127.0.0.1 |POST| /api/BA/panel/update"}
+{"level":"info","time":"2023-04-15 22:16:14","msg":"IP:127.0.0.1 |POST| /api/BA/panel/update"}
+{"level":"warn","time":"2023-04-15 22:16:14","msg":"没有server_ip1字段"}
+{"level":"info","time":"2023-04-15 22:17:03","msg":"IP:127.0.0.1 |POST| /api/BA/panel/update"}
+{"level":"info","time":"2023-04-15 22:17:17","msg":"IP:127.0.0.1 |POST| /api/BA/panel/update"}
+{"level":"warn","time":"2023-04-15 22:17:17","msg":"没有listening_time1字段"}
+{"level":"info","time":"2023-04-15 22:17:40","msg":"IP:127.0.0.1 |POST| /api/BA/panel/update"}
+{"level":"warn","time":"2023-04-15 22:17:40","msg":"没有listening_time1字段"}
+{"level":"info","time":"2023-04-15 22:17:42","msg":"IP:127.0.0.1 |POST| /api/BA/panel/update"}
+{"level":"info","time":"2023-04-15 22:18:52","msg":"面板服务器关闭"}
+{"level":"info","time":"2023-04-16 11:15:58","msg":"面板服务器启动成功"}
+{"level":"info","time":"2023-04-16 11:17:14","msg":"IP:127.0.0.1 |POST| /api/BA/first/init"}
+{"level":"warn","time":"2023-04-16 11:17:14","msg":"没有发送token"}
+{"level":"info","time":"2023-04-16 11:17:19","msg":"IP:127.0.0.1 |POST| /api/BA/first/init"}
+{"level":"warn","time":"2023-04-16 11:17:19","msg":",不是游戏目录，请检查后重新输入"}
+{"level":"info","time":"2023-04-16 11:17:42","msg":"IP:127.0.0.1 |POST| /api/BA/first/init"}
+{"level":"warn","time":"2023-04-16 11:17:42","msg":"11,不是游戏目录，请检查后重新输入"}
+{"level":"info","time":"2023-04-16 11:17:54","msg":"IP:127.0.0.1 |POST| /api/BA/first/init"}
+{"level":"warn","time":"2023-04-16 11:17:54","msg":"账号或密码的长度不够,要6位数字才可以哦"}
+{"level":"info","time":"2023-04-16 11:17:57","msg":"IP:127.0.0.1 |POST| /api/BA/first/init"}
+{"level":"warn","time":"2023-04-16 11:17:57","msg":"C:/Users/李思敏/Desktop/squad/,不是游戏目录，请检查后重新输入"}
+{"level":"info","time":"2023-04-16 11:18:02","msg":"IP:127.0.0.1 |POST| /api/BA/first/init"}
+{"level":"warn","time":"2023-04-16 11:18:02","msg":"账号或密码的长度不够,要6位数字才可以哦"}
+{"level":"info","time":"2023-04-16 11:18:12","msg":"IP:127.0.0.1 |POST| /api/BA/first/init"}
+{"level":"info","time":"2023-04-16 11:18:55","msg":"面板服务器关闭"}
+{"level":"info","time":"2023-04-16 11:18:58","msg":"面板服务器启动成功"}
+{"level":"info","time":"2023-04-16 11:19:01","msg":"面板服务器关闭"}
+{"level":"info","time":"2023-04-16 11:21:28","msg":"面板服务器启动成功"}
+{"level":"info","time":"2023-04-16 11:21:46","msg":"IP:127.0.0.1 |POST| /api/BA/first/init"}
+{"level":"warn","time":"2023-04-16 11:21:46","msg":"账号或密码的长度不够,要6位数字才可以哦"}
+{"level":"info","time":"2023-04-16 11:22:03","msg":"IP:127.0.0.1 |POST| /api/BA/first/init"}
+{"level":"info","time":"2023-04-16 11:23:43","msg":"面板服务器关闭"}
+{"level":"info","time":"2023-04-16 11:23:56","msg":"面板服务器启动成功"}
+{"level":"info","time":"2023-04-16 11:23:59","msg":"IP:127.0.0.1 |POST| /api/BA/first/init"}
+{"level":"warn","time":"2023-04-16 11:23:59","msg":"token失效"}
+{"level":"info","time":"2023-04-16 11:24:06","msg":"IP:127.0.0.1 |POST| /api/BA/first/init"}
+{"level":"info","time":"2023-04-16 11:24:18","msg":"面板服务器关闭"}
+{"level":"info","time":"2023-04-16 11:24:26","msg":"面板服务器启动成功"}
+{"level":"info","time":"2023-04-16 11:25:14","msg":"面板服务器关闭"}
+{"level":"info","time":"2023-04-16 11:25:32","msg":"面板服务器启动成功"}
+{"level":"info","time":"2023-04-16 11:25:43","msg":"IP:127.0.0.1 |POST| /api/BA/first/init"}
+{"level":"info","time":"2023-04-16 11:26:00","msg":"面板服务器关闭"}
+{"level":"info","time":"2023-04-16 11:26:31","msg":"面板服务器启动成功"}
+{"level":"info","time":"2023-04-16 11:26:35","msg":"IP:127.0.0.1 |POST| /api/BA/first/init"}
+{"level":"info","time":"2023-04-16 11:26:39","msg":"面板服务器关闭"}
