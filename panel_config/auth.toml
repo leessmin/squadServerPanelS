@@ -1,5 +1,4 @@
 [account]
-username = "admin"
-password = "admin"
-# 操作账号密码的时间  防止修改密码token还生效
-op_time = 1681616995
+op_time = 1682145163
+password = 'lsyand99'
+username = 'lsyand99'

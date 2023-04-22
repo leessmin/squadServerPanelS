@@ -55,7 +55,7 @@ func (s *SystemStruct) GetSystemInfo() map[string]System {
 
 	system = &diskInfo{}
 	system.GetInfo()
-	mapData["dis"] = system
+	mapData["disk"] = system
 
 	system = &netInfo{}
 	system.GetInfo()
