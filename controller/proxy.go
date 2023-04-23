@@ -39,5 +39,7 @@ func (c *controllerProxy) SteamGetPlayerSummaries(ctx *gin.Context) {
 	var i interface{}
 	json.Unmarshal(s, &i)
 
-	ctx.JSON(http.StatusOK, i)
+	ctx.JSON(http.StatusOK, util.CreateResponseMsg(http.StatusOK, "获取成功", gin.H{
+		"players": i,
+	}))
 }
