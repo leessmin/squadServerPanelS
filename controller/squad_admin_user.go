@@ -188,7 +188,7 @@ func (au adminUser) formatString() string {
 	// 判断是否有备注
 	if strings.TrimSpace(au.Info) == "" {
 		// 没有备注
-		str = fmt.Sprintf("Group=%v:%v", au.SteamId, au.GroupName)
+		str = fmt.Sprintf("Admin=%v:%v", au.SteamId, au.GroupName)
 	} else {
 		str = fmt.Sprintf("Admin=%v:%v // %v", au.SteamId, au.GroupName, au.Info)
 	}

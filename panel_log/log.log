@@ -3393,3 +3393,10 @@
 {"level":"info","time":"2023-04-23 17:22:03","msg":"IP:127.0.0.1 |GET| /api/proxy/steam/GetPlayerSummaries"}
 {"level":"info","time":"2023-04-23 17:22:03","msg":"IP:127.0.0.1 |GET| /api/proxy/steam/GetPlayerSummaries"}
 {"level":"info","time":"2023-04-23 17:22:51","msg":"面板服务器关闭"}
+{"level":"info","time":"2023-04-23 17:22:54","msg":"面板服务器启动成功"}
+{"level":"info","time":"2023-04-23 17:23:02","msg":"IP:127.0.0.1 |GET| /api/proxy/steam/GetPlayerSummaries"}
+{"level":"info","time":"2023-04-23 17:23:07","msg":"IP:127.0.0.1 |GET| /api/auth/verify"}
+{"level":"info","time":"2023-04-23 17:23:07","msg":"IP:127.0.0.1 |GET| /api/BA/adminGroup/get"}
+{"level":"info","time":"2023-04-23 17:23:07","msg":"IP:127.0.0.1 |GET| /api/BA/adminUser/get"}
+{"level":"info","time":"2023-04-23 17:23:07","msg":"IP:127.0.0.1 |GET| /api/proxy/steam/GetPlayerSummaries"}
+{"level":"info","time":"2023-04-23 17:23:07","msg":"IP:127.0.0.1 |GET| /api/proxy/steam/GetPlayerSummaries"}
