@@ -4,6 +4,7 @@ import (
 	"SSPS/config"
 	"SSPS/util"
 	"encoding/json"
+	"sync"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -15,6 +16,8 @@ type controllerSystem struct {
 	melodyWS *melody.Melody
 	// 是否已经运行了sendMsg函数  true正在运行
 	isSend bool
+	// 保证 isSend 是线程安全的
+	sync.RWMutex
 }
 
 var System controllerSystem
@@ -49,19 +52,19 @@ func (c *controllerSystem) GetSystemInfo(ctx *gin.Context) {
 // 广播 消息
 func (c *controllerSystem) sendMsg() {
 	// 向所有会话广播消息已经开启 防止再次开启 直接返回
-	if c.isSend {
+	if c.getIsSend() {
 		return
 	}
 
 	// 开启广播
-	c.isSend = true
+	c.setIsSend(true)
 
 	// 开启 协程 广播消息
 	go func(c *controllerSystem) {
 
 		// 关闭广播
 		defer func() {
-			c.isSend = false
+			c.setIsSend(false)
 
 			// 防止关闭广播期间 又新的会话建立连接
 			// 关闭广播后 判断 是否存在会话  如果存在会话 重新调用广播
@@ -106,4 +109,18 @@ func getNowTime() string {
 	now := time.Now()
 
 	return now.Format("15:04:05")
+}
+
+// 设置 isSend   线程保护
+func (c *controllerSystem) setIsSend(b bool) {
+	c.RWMutex.Lock()
+	defer c.Unlock()
+	c.isSend = b
+}
+
+// 读 isSend  线程保护
+func (c *controllerSystem) getIsSend() bool {
+	c.RWMutex.Lock()
+	defer c.Unlock()
+	return c.isSend
 }
