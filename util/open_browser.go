@@ -7,13 +7,6 @@ import (
 )
 
 // 打开浏览器
-var commands = map[string]string{
-	"windows": "cmd",
-	"darwin":  "open",
-	"linux":   "xdg-open",
-}
-
-// 打开浏览器
 func OpenBrowser(uri string) {
 
 	var cmd string
