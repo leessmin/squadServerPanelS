@@ -2,9 +2,10 @@ package config
 
 import (
 	"fmt"
-	"io"
 	"math"
-	"net/http"
+	"net"
+	"os"
+	"strings"
 	"sync"
 
 	"github.com/fsnotify/fsnotify"
@@ -56,9 +57,20 @@ func init() {
 	// 读取配置文件
 	CreatePanelConf().ReadPanelConfig()
 
+	// 获取ip
+	ip, err := getExternalIP()
+	if err != nil {
+		panic(err)
+	}
+
 	// 更新配置文件
-	panelViper.Set("server_ip", getExternalIP())
+	panelViper.Set("server_ip", ip)
 	panelViper.WriteConfig()
+}
+
+func init() {
+	// 设置前端请求页面的地址
+	setWebPort(panelConf.ServerIp, panelConf.PanelPort)
 }
 
 // 单例模式  初始化 面板配置 实例
@@ -128,16 +140,27 @@ func GetType(value interface{}) any {
 }
 
 // 获取外部ip
-func getExternalIP() string {
-	res, err := http.Get("http://myexternalip.com/raw")
+func getExternalIP() (ip string, err error) {
+	conn, err := net.Dial("udp", "8.8.8.8:53")
 	if err != nil {
-		panic(fmt.Sprintf("获取外部ip出错，err:%v", err))
+		fmt.Println(err)
+		return
 	}
-	// 关闭连接
-	defer res.Body.Close()
+	localAddr := conn.LocalAddr().(*net.UDPAddr)
+	ip = strings.Split(localAddr.String(), ":")[0]
+	return
+}
 
-	body, _ := io.ReadAll(res.Body)
+// 设置 web页面的请求接口
+func setWebPort(ip string, port int) {
 
-	// 返回外网ip
-	return string(body)
+	// 打开文件执行覆盖操作
+	file, err := os.OpenFile("./static/web/cfg.js", os.O_WRONLY|os.O_TRUNC|os.O_CREATE, 0644)
+	if err != nil {
+		panic(err)
+	}
+	defer file.Close()
+
+	// 写入文件
+	file.WriteString(fmt.Sprintf("const serverUrl = '%v:%v'", ip, port))
 }
