@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"net/http"
 	"path"
+	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -51,8 +52,11 @@ func (c *controllerFirstInit) InitPanel(ctx *gin.Context) {
 	// 更新
 	au.UpdateAuth()
 
-	// 备份配置
-	t_init.BackupSquadCfg()
+	go func() {
+		time.Sleep(5*time.Second)
+		// 备份配置
+		t_init.BackupSquadCfg()
+	}()
 
 	ctx.JSON(http.StatusOK, util.CreateResponseMsg(http.StatusOK, "初始化成功", gin.H{}))
 }

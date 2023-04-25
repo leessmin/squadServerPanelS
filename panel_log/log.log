@@ -9104,3 +9104,26 @@
 {"level":"info","time":"2023-04-25 11:45:48","msg":"IP:192.168.1.110 |GET| /api/auth/captcha"}
 {"level":"info","time":"2023-04-25 11:45:48","msg":"IP:192.168.1.110 |GET| /index/login_bg.jpg"}
 {"level":"info","time":"2023-04-25 11:45:49","msg":"IP:192.168.1.110 |GET| /index/vite.svg"}
+{"level":"info","time":"2023-04-25 11:46:58","msg":"面板服务器关闭"}
+{"level":"info","time":"2023-04-25 12:06:17","msg":"面板服务器启动成功"}
+{"level":"info","time":"2023-04-25 12:06:38","msg":"面板服务器启动成功"}
+{"level":"info","time":"2023-04-25 12:07:19","msg":"面板服务器启动成功"}
+{"level":"info","time":"2023-04-25 12:07:20","msg":"IP:192.168.1.110 |GET| /index/"}
+{"level":"info","time":"2023-04-25 12:07:20","msg":"IP:192.168.1.110 |GET| /index/cfg.js"}
+{"level":"info","time":"2023-04-25 12:07:20","msg":"IP:192.168.1.110 |GET| /index/assets/index-2df293b2.js"}
+{"level":"info","time":"2023-04-25 12:07:20","msg":"IP:192.168.1.110 |GET| /index/assets/index-ff9cab82.css"}
+{"level":"info","time":"2023-04-25 12:07:20","msg":"IP:192.168.1.110 |GET| /index/assets/Login-18b60c51.js"}
+{"level":"info","time":"2023-04-25 12:07:20","msg":"IP:192.168.1.110 |GET| /index/assets/useLoginStore-9aa4a7ba.js"}
+{"level":"info","time":"2023-04-25 12:07:20","msg":"IP:192.168.1.110 |GET| /index/assets/http-9bd06147.js"}
+{"level":"info","time":"2023-04-25 12:07:20","msg":"IP:192.168.1.110 |GET| /index/assets/config-9c65774d.js"}
+{"level":"info","time":"2023-04-25 12:07:20","msg":"IP:192.168.1.110 |GET| /index/assets/Login-08d61160.css"}
+{"level":"info","time":"2023-04-25 12:07:20","msg":"IP:192.168.1.110 |GET| /index/assets/formData-4b5941f0.js"}
+{"level":"info","time":"2023-04-25 12:07:20","msg":"IP:192.168.1.110 |GET| /index/assets/_plugin-vue_export-helper-c27b6911.js"}
+{"level":"info","time":"2023-04-25 12:07:20","msg":"IP:192.168.1.110 |GET| /api/auth/captcha"}
+{"level":"info","time":"2023-04-25 12:07:32","msg":"IP:192.168.1.110 |GET| /api/auth/captcha"}
+{"level":"info","time":"2023-04-25 12:07:40","msg":"IP:192.168.1.110 |POST| /api/auth/login"}
+{"level":"info","time":"2023-04-25 12:07:40","msg":"IP:192.168.1.110 |GET| /index/assets/Init-bfcfd7d0.js"}
+{"level":"info","time":"2023-04-25 12:07:40","msg":"IP:192.168.1.110 |GET| /index/assets/Init-705c4edb.css"}
+{"level":"info","time":"2023-04-25 12:08:02","msg":"IP:192.168.1.110 |POST| /api/BA/first/init"}
+{"level":"info","time":"2023-04-25 12:08:02","msg":"IP:192.168.1.110 |GET| /api/auth/captcha"}
+{"level":"info","time":"2023-04-25 12:09:02","msg":"面板服务器关闭"}
