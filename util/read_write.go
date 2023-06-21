@@ -386,8 +386,9 @@ func (rw *ReadWrite) FindContentIndex(pattern, fileName string) int {
 
 // 拼接路径  传入需要找到的文件，，底层路径为配置文件中的game_serve_path
 func (rw *ReadWrite) basePathJoin(fileName string) string {
+	// TODO:已知问题，配置文件路径可能不对
 	// 默认配置文件路径 .游戏根目录 ./SquadGame
-	p := path.Join(config.CreatePanelConf().GameServePath, "SquadGame", fileName)
+	p := path.Join(config.CreatePanelConf().GameServePath, "SquadGame", "ServerConfig", fileName)
 	return p
 }
 
